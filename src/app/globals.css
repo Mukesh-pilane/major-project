@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Poppins", sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+*,
+*::after,
+*::after {
+  /* border: 1px solid rgba(255, 102, 102, 0.622); */
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body::selection {
+  color: none;
+  background: none;
+}
+/* For Mozilla Firefox */
+body::-moz-selection {
+  color: none;
+  background: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: none;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+}
+/* //Check box  */
+
+.addon-checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-content {
+  width: 100%;
+  padding-left: 55px;
+  padding-right: 20px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid hsl(229, 24%, 87%);
+  border-radius: 8px;
+}
+
+.checkbox-content:hover {
+  -webkit-box-shadow: 0px 3px 5px 0px #e8e8e8;
+  box-shadow: 0px 3px 5px 0px #e8e8e8;
+}
+
+.custom-checkbox {
+  position: absolute;
+  left: 20px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid theme("colors.accent.500");
+  border-radius: 4px;
+  padding: 9px;
+}
+
+.addon-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+.addon-checkbox input[type="checkbox"]:checked ~ .custom-checkbox {
+  background-color: theme("colors.accent.500");
+  background-image: url("/assets/logo/icon-checkmark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.addon-checkbox input[type="checkbox"]:checked ~ .checkbox-content {
+  border: 1px solid theme("colors.accent.500");
+  background-color: theme("colors.accent.100");
+}
+
+/* Rich text editor  */
+
+.richtext {
+  word-break: break-all;
+}
+
+.richtext > h1,
+.richtext > h2,
+.richtext > h3,
+.richtext > h4 {
+  color: theme("colors.gray.800");
+}
+.richtext > p,
+.richtext > ul li,
+.richtext > ol li,
+.richtext > span {
+  color: theme("colors.gray.600");
+}
+
+.richtext p,
+.richtext span {
+  font-size: 0.875rem;
+}
+.richtext h2 {
+  font-size: 1.25rem;
+}
+.richtext h3 {
+  font-size: 1rem;
+}
+
+.richtext ul {
+  font-size: 0.875rem;
+  list-style-type: none;
+  padding-left: 1rem;
+  background: transparent;
+}
+
+.richtext ul li {
+  position: relative;
+}
+
+.richtext ul li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  transform: translateX(-10px) translateY(150%);
+  position: absolute;
+  border-radius: 50%;
+  background-color: theme("colors.accent.500");
+}
+
+.richtext ol {
+  font-size: 0.875rem;
+  list-style-type: none;
+  padding-left: 1.5rem;
+  background: transparent;
+}
+.richtext ol li {
+  position: relative;
+  counter-increment: list;
+}
+.richtext ol li::before {
+  content: counter(list) ".";
+  transform: translateX(-15px);
+  position: absolute;
+  color: theme("colors.accent.500");
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: theme("colors.gray.100");
+  }
+  100% {
+    background-color: theme("colors.gray.200");
+  }
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 50%;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: theme("colors.accent.500");
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.accent.700");
+}

@@ -1,0 +1,65 @@
+[{
+  "_id": {
+    "$oid": "6419597cd383d0002d446d0a"
+  },
+  "name": "Support",
+  "categoryId": {
+    "$oid": "641958dbd383d0002d446d02"
+  }
+},{
+  "_id": {
+    "$oid": "64195988d383d0002d446d0b"
+  },
+  "name": "Software Development",
+  "categoryId": {
+    "$oid": "641958dbd383d0002d446d02"
+  }
+},{
+  "_id": {
+    "$oid": "6419598dd383d0002d446d0c"
+  },
+  "name": "Web Development",
+  "categoryId": {
+    "$oid": "641958dbd383d0002d446d02"
+  }
+},{
+  "_id": {
+    "$oid": "641959a0d383d0002d446d0d"
+  },
+  "name": "Networking",
+  "categoryId": {
+    "$oid": "641958dbd383d0002d446d02"
+  }
+},{
+  "_id": {
+    "$oid": "641959a9d383d0002d446d0e"
+  },
+  "name": "DevOps",
+  "categoryId": {
+    "$oid": "641958dbd383d0002d446d02"
+  }
+},{
+  "_id": {
+    "$oid": "641959c1d383d0002d446d0f"
+  },
+  "name": "Quality Assurance and Testing",
+  "categoryId": {
+    "$oid": "641958dbd383d0002d446d02"
+  }
+},{
+  "_id": {
+    "$oid": "641959d2d383d0002d446d10"
+  },
+  "name": "Telecom",
+  "categoryId": {
+    "$oid": "641958dbd383d0002d446d02"
+  }
+},{
+  "_id": {
+    "$oid": "641959dcd383d0002d446d11"
+  },
+  "name": "Hardware",
+  "categoryId": {
+    "$oid": "641958dbd383d0002d446d02"
+  }
+}]
