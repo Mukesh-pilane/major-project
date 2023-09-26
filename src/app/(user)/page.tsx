@@ -2,7 +2,6 @@ import CompanyList from "~/components/company/CompanyList";
 import CategoryLinks from "~/components/home/CategoryLinks";
 import Search from "~/components/home/Search";
 import JobList from "~/components/job/JobList";
-import { ClientOnly } from "@apollo/client/react/ssr
 
 // Home Page metadata
 export const metadata = {
@@ -19,10 +18,8 @@ const HomePage = () => {
       <Search />
       {/* ts-expect-error Async Server Component */}
       
-<ClientOnly>
-      <CategoryLinks />
-</ClientOnly>
 
+      <CategoryLinks />
 
       <div className=" grid gap-6 md:grid-cols-2">
         {/* Hidden on small screens  */}

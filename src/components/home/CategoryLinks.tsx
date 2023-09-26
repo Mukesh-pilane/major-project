@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { prisma } from "~/server/db";
+import { ClientOnly } from "@apollo/client/react/ssr
 
 export const revalidate = 60 * 60 * 24;
 
@@ -38,11 +39,14 @@ const CategoryLinks = () => {
       <LinkItem href={"/search"} title="All Jobs" />
       {categories?.map((category) => {
         return (
+        <ClientOnly>
           <LinkItem
             key={category.id}
             href={`/search?category=${category.name}`}
             title={category.name}
           />
+</ClientOnly>
+
         );
       })}
     </ul>
