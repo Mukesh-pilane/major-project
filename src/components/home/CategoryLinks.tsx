@@ -1,8 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { prisma } from "~/server/db";
-import { ClientOnly } from "@apollo/client/react/ssr
-
+import { ClientOnly } from "@apollo/client/react/ssr"
 export const revalidate = 60 * 60 * 24;
 
 const LinkItem = ({ href, title }: { href: string; title: string }) => {
