@@ -22,7 +22,7 @@ const server = z.object({
  */
 const client = z.object({
   // Define any client-side environment variables here
-  NEXT_PUBLIC_MY_VARIABLE: z.string().min(1), // Adjust validation for production
+  //NEXT_PUBLIC_MY_VARIABLE: z.string().min(1), // Adjust validation for production
 });
 
 /**
