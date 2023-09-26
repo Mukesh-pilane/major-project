@@ -39,7 +39,7 @@ const processEnv = {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   // Define any other environment variables here
-  NEXT_PUBLIC_MY_VARIABLE: process.env.NEXT_PUBLIC_MY_VARIABLE,
+ 
 };
 
 // Don't touch the part below
