@@ -1,6 +1,5 @@
-"use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { prisma } from "~/server/db";
 
 export const revalidate = 60 * 60 * 24;
@@ -17,22 +16,8 @@ const LinkItem = ({ href, title }: { href: string; title: string }) => {
   );
 };
 
-const CategoryLinks = () => {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await prisma.category.findMany();
-        setCategories(response);
-      } catch (error) {
-        // Handle any errors here
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+const CategoryLinks = async () => {
+  const categories = await prisma.category.findMany();
 
   return (
     <ul className="grid w-full  grid-flow-col  gap-6 overflow-auto p-4 py-8">

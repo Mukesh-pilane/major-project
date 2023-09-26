@@ -16,7 +16,7 @@ const HomePage = () => {
   return (
     <main className=" mx-auto w-full max-w-7xl overflow-hidden px-4 pb-16">
       <Search />
-      {/* ts-expect-error Async Server Component */}
+      {/*@ts-expect-error Async Server Component */}
       
 
       <CategoryLinks />
