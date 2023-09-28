@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import Modal from "~/components/modal/Modal";
 import React from "react";
 import type { IconType } from "react-icons";
 import {
@@ -9,6 +10,7 @@ import {
   BiBriefcase,
   BiBuildings,
   BiHomeAlt,
+  BiCloset,
   BiLink,
   BiLinkExternal,
   BiMapPin,
@@ -46,7 +48,22 @@ const InfoCard = ({
   );
 };
 
-const SideBarV2 = ({ job }: { job: Job }) => {
+const ApplyForm = ({ job }: { job: Job }) => {
+
+  return (
+    <div className=" rounded-md bg-white p-4">
+    <h2 className=" text-[clamp(1rem,10vw,2rem)] font-medium capitalize">
+      {job.title}
+    </h2>
+    <h1>sasa</h1>
+    </div>
+     
+   
+  )
+
+}
+
+ const SideBarV2 = ({ job }: { job: Job }) => {
   return (
     <motion.div
       initial={{
@@ -125,20 +142,25 @@ const SideBarV2 = ({ job }: { job: Job }) => {
             icon={BiBook}
           />
         )}
-        <motion.a
-          target={"_blank"}
-          variants={motionItem}
-          href={job?.applyUrl}
-          whileHover={{
-            scale: 1.025,
-          }}
-          whileTap={{
-            scale: 1,
-          }}
-          className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 py-3 text-white"
-        >
-          Apply Here <BiLink size={18} />
-        </motion.a>
+              <Modal
+      button={
+        <motion.p
+        variants={motionItem}
+        whileHover={{
+          scale: 1.025,
+        }}
+        whileTap={{
+          scale: 1,
+        }}
+        className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 px-10 py-3 text-white"
+      >
+        Apply Here <BiLink size={18} />
+      </motion.p>
+      }
+    >
+      
+        <ApplyForm job={job}/>
+      </Modal>
         {job.applyEmail && (
           <motion.a
             href={`mailto:${job.applyEmail}`}
@@ -154,9 +176,17 @@ const SideBarV2 = ({ job }: { job: Job }) => {
             Any Query : {job.applyEmail}
           </motion.a>
         )}
+
+    
+      
       </motion.ul>
+      
+
     </motion.div>
   );
 };
 
+
+
 export default SideBarV2;
+

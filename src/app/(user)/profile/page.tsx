@@ -2,12 +2,15 @@
 import UserPostedJobs from "./components/UserPostedJobs";
 import { Tab } from "@headlessui/react";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import UserProfile from "./components/UserProfile";
+import AppliedJobs from "./components/AppliedJobs";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const TabItem = ({ title }) => {
+  
   return (
     <Tab
       as="button"
@@ -32,7 +35,7 @@ const TabPanelItem = ({ children }) => {
 
 const ProfilePage = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-
+  const { data: session } = useSession();
   return (
     <main className=" mx-auto grid h-full w-full max-w-7xl gap-10 px-4 pb-16 md:grid-cols-[minmax(150px,250px)_1fr] md:py-10 ">
       <Tab.Group
@@ -43,6 +46,8 @@ const ProfilePage = () => {
         <Tab.List className={"flex h-fit flex-col justify-start gap-4 p-2 "}>
           <TabItem title={"Profile"} />
           <TabItem title={"Posted Jobs"} />
+         {!session?.user.isAdmin?<TabItem title={"Applied Jobs"} />:null}
+
         </Tab.List>
         <Tab.Panels>
           <TabPanelItem>
@@ -50,6 +55,9 @@ const ProfilePage = () => {
           </TabPanelItem>
           <TabPanelItem>
             <UserPostedJobs />
+          </TabPanelItem>
+          <TabPanelItem>
+            <AppliedJobs />
           </TabPanelItem>
         </Tab.Panels>
       </Tab.Group>
