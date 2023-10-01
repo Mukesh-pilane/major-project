@@ -4,7 +4,7 @@ import { jobRouter } from "./routers/job";
 import { companyRouter } from "./routers/company";
 import { categoryRouter } from "./routers/category";
 import { subCategoryRouter } from "./routers/subCategory";
-
+import { jobApplicationsRouter } from "./routers/jobApplications";
 /**
  * This is the primary router for your server.
  *
@@ -16,6 +16,7 @@ export const appRouter = createTRPCRouter({
   company: companyRouter,
   category: categoryRouter,
   subCategory: subCategoryRouter,
+  jobApplications: jobApplicationsRouter
 });
 
 // export type definition of API

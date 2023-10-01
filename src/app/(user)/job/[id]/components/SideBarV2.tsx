@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import {useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Modal from "~/components/modal/Modal";
@@ -18,7 +19,7 @@ import {
 } from "react-icons/bi";
 import { BsEmojiNeutral } from "react-icons/bs";
 import { motionContainer, motionItem } from "~/utils/animation";
-import type { RouterOutputs } from "~/utils/api";
+import type { RouterOutputs, api } from "~/utils/api";
 
 type Job = RouterOutputs["job"]["get"];
 
@@ -64,6 +65,38 @@ const ApplyForm = ({ job }: { job: Job }) => {
 }
 
  const SideBarV2 = ({ job }: { job: Job }) => {
+  
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [userId, setUserId] = useState(""); // Replace with the actual user ID
+  const [jobId, setJobId] = useState(""); // Replace with the actual job ID
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile || !userId || !jobId) {
+      // Handle validation or error here
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("userId", userId);
+    formData.append("jobId", jobId);
+
+    // try {
+    //   // Call the uploadResume mutation using api.jobApplications.uploadResume
+    //   const result = await api.jobApplications.uploadResume(formData);
+
+    //   // Handle success or result here
+    //   console.log("Upload successful", result);
+    // } catch (error) {
+    //   // Handle error here
+    //   console.error("Upload failed", error);
+    // }
+  }
   return (
     <motion.div
       initial={{

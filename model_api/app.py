@@ -6,12 +6,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import fitz  # PyMuPDF
 import pickle
 
-# Save the trained classifier model using pickle
+pdf_path = 'Mukesh.pdf'
 
 
-def extract_text_from_pdf(pdf_path):
+
+def extract_text_from_pdf(pdf_document):
     text = ""
-    pdf_document = fitz.open(pdf_path)
     
     for page_num in range(pdf_document.page_count):
         page = pdf_document.load_page(page_num)
@@ -20,15 +20,6 @@ def extract_text_from_pdf(pdf_path):
     pdf_document.close()
     return text
 
-# Replace 'your_pdf_file.pdf' with the actual path to your PDF file
-pdf_path = 'resume3.pdf'
-extracted_text = extract_text_from_pdf(pdf_path)
-
-
-# New resume text that you want to classify
-new_resume = extracted_text
-
-# Preprocess the new resume text
 def cleanResume(resumeText):
     resumeText = re.sub('http\S+\s*', ' ', resumeText)
     resumeText = re.sub('RT|cc', ' ', resumeText)
@@ -38,8 +29,17 @@ def cleanResume(resumeText):
     resumeText = re.sub(r'[^\x00-\x7f]',r' ', resumeText)
     resumeText = re.sub('\s+', ' ', resumeText)
     return resumeText
+# print(cleanResume(extract_text_from_pdf(pdf_document)))
 
-cleaned_new_resume = cleanResume(new_resume)
+
+# print(extract_text_from_pdf(fitz.open(pdf_path)))
+# New resume text that you want to classify
+# new_resume = extract_text_from_pdf(pdf_document)
+
+# # Preprocess the new resume text
+
+# cleaned_new_resume = cleanResume(new_resume)
+# print(cleaned_new_resume)
 
 # # Vectorize the cleaned new resume text
 # word_vectorizer = TfidfVectorizer(
@@ -62,12 +62,20 @@ with open(model_filename, 'wb') as model_file:
     pickle.dump(clf, model_file)
 
 
-def classifier(pdf):
-    new_resume = extracted_text
-    cleaned_new_resume = cleanResume(new_resume)
+def classifier(pdf_path,):
+    pdf_document = fitz.open(pdf_path)
+    print(pdf_document)
+    
+    # new_resume = extract_text_from_pdf(pdf_document)
+    # print(new_resume)
+    # cleaned_new_resume = cleanResume(extract_text_from_pdf(pdf_document))
+    # print(cleaned_new_resume)
     word_vectorizer = TfidfVectorizer(
     sublinear_tf=True,
     stop_words='english')
-    word_vectorizer.fit(cleaned_new_resume)  # Use the same vectorizer used during training
-    new_resume_features = word_vectorizer.transform([cleaned_new_resume])
+    word_vectorizer.fit(cleanResume(extract_text_from_pdf(pdf_document)))  # Use the same vectorizer used during training
+    new_resume_features = word_vectorizer.transform([cleanResume(extract_text_from_pdf(pdf_document))])
     return "text"
+
+
+print(classifier(pdf_path))
