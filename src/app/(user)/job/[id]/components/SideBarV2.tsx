@@ -65,7 +65,7 @@ const InfoCard = ({
 
 const SideBarV2 = ({ job }: { job: Job }) => {
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [userId, setUserId] = useState(""); // Replace with the actual user ID
   const [jobId, setJobId] = useState(""); // Replace with the actual job ID
 
