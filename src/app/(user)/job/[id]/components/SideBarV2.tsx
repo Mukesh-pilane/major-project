@@ -1,10 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
-import {useState} from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Modal from "~/components/modal/Modal";
 import React from "react";
+import { Field, Form, Formik } from "formik";
 import type { IconType } from "react-icons";
 import {
   BiBook,
@@ -22,6 +23,7 @@ import { motionContainer, motionItem } from "~/utils/animation";
 import type { RouterOutputs} from "~/utils/api";
 import { toast } from "react-hot-toast";
 import {api} from "~/utils/api";
+import PdfUpload from "~/components/input/PdfUpload";
 
 type Job = RouterOutputs["job"]["get"];
 type UploadResumeResult = RouterOutputs["jobApplications"]["uploadResume"];
@@ -58,32 +60,21 @@ const InfoCard = ({
   );
 };
 
-const ApplyForm = ({ job }: { job: Job }) => {
 
-  return (
-    <div className=" rounded-md bg-white p-4">
-    <h2 className=" text-[clamp(1rem,10vw,2rem)] font-medium capitalize">
-      {job.title}
-    </h2>
-    <h1>sasa</h1>
-    </div>
-     
-   
-  )
 
-}
 
- const SideBarV2 = ({ job }: { job: Job }) => {
-  
-  const [selectedFile, setSelectedFile] = useState(null);
+const SideBarV2 = ({ job }: { job: Job }) => {
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [userId, setUserId] = useState(""); // Replace with the actual user ID
   const [jobId, setJobId] = useState(""); // Replace with the actual job ID
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handlePdfChange = (file: File) => {
     setSelectedFile(file);
-  };
 
+    
+  };
+  console.log(selectedFile);
   const handleUpload = async () => {
     if (!selectedFile || !userId || !jobId) {
       // Handle validation or error here
@@ -117,6 +108,39 @@ const ApplyForm = ({ job }: { job: Job }) => {
       // Handle error here
       console.error("Upload failed", error);
     }
+  }
+
+  const ApplyForm = ({ job }: { job: Job }) => {
+
+    return (
+      <>
+  
+        <div className=" rounded-md bg-white  p-4">
+          <h2 className=" text-[clamp(1rem,10vw,1.3rem)] font-medium capitalize">
+            Applying for {job.title}
+          </h2>
+          <h1>{job.company.name}</h1>
+        </div>
+        <Formik
+          initialValues={{
+            name: "",
+            website: "",
+            linkedin: "",
+          }}
+          onSubmit={() => {
+            
+            }
+          }
+        >
+  
+  <Form className=" grid gap-4">
+            <PdfUpload   onChange={handlePdfChange} />
+            </Form>
+        </Formik>
+  
+      </>
+    )
+  
   }
   return (
     <motion.div
@@ -178,8 +202,8 @@ const ApplyForm = ({ job }: { job: Job }) => {
             job.workPlace === "OFFICE"
               ? BiBuildings
               : job.workPlace === "HYBRID"
-              ? BsEmojiNeutral
-              : BiHomeAlt
+                ? BsEmojiNeutral
+                : BiHomeAlt
           }
         />
         {job.workPlace !== "REMOTE" && (
@@ -196,25 +220,25 @@ const ApplyForm = ({ job }: { job: Job }) => {
             icon={BiBook}
           />
         )}
-              <Modal
-      button={
-        <motion.p
-        variants={motionItem}
-        whileHover={{
-          scale: 1.025,
-        }}
-        whileTap={{
-          scale: 1,
-        }}
-        className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 px-10 py-3 text-white"
-      >
-        Apply Here <BiLink size={18} />
-      </motion.p>
-      }
-    >
-      
-        <ApplyForm job={job}/>
-      </Modal>
+        <Modal
+          button={
+            <motion.p
+              variants={motionItem}
+              whileHover={{
+                scale: 1.025,
+              }}
+              whileTap={{
+                scale: 1,
+              }}
+              className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 px-10 py-3 text-white"
+            >
+              Apply Here <BiLink size={18} />
+            </motion.p>
+          }
+        >
+
+          <ApplyForm job={job} />
+        </Modal>
         {job.applyEmail && (
           <motion.a
             href={`mailto:${job.applyEmail}`}
@@ -231,10 +255,10 @@ const ApplyForm = ({ job }: { job: Job }) => {
           </motion.a>
         )}
 
-    
-      
+
+
       </motion.ul>
-      
+
 
     </motion.div>
   );
