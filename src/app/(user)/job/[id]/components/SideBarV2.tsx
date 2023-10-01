@@ -20,6 +20,7 @@ import {
 import { BsEmojiNeutral } from "react-icons/bs";
 import { motionContainer, motionItem } from "~/utils/animation";
 import type { RouterOutputs} from "~/utils/api";
+import { toast } from "react-hot-toast";
 import {api} from "~/utils/api";
 
 type Job = RouterOutputs["job"]["get"];
@@ -102,8 +103,14 @@ const ApplyForm = ({ job }: { job: Job }) => {
         jobId: "67890", // Replace with the actual job ID
       };
       // Call the uploadResume mutation using api.jobApplications.uploadResume
-      // const result : boolean = await api.jobApplications.uploadResume.useMutation(args)
-
+      const result  = await api.jobApplications.uploadResume.useMutation({
+        onError: (e) => {
+          toast.error(`Something went wrong ${e.message}`);
+        },
+        onSuccess: () => {
+          toast.success(`SuccessFully applied for job listing`);
+        },
+      });
       // Handle success or result here
       console.log("Upload successful");
     } catch (error) {
