@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, ReactNode, useState } from "react";
 import PrimaryButton from "../button/PrimaryButton";
 import SecondaryButton from "../button/SecondaryButton";
+import { usePathname } from 'next/navigation'
 
 export default function Modal({
   children,
@@ -11,6 +12,14 @@ export default function Modal({
   children: ReactNode;
   button: ReactNode;
 }) {
+  const searchParams = usePathname()
+    // Check if the URL contains "/job"
+  const  isJobPage = searchParams.includes("/job");
+
+console.log(isJobPage);
+
+
+
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -43,7 +52,7 @@ export default function Modal({
             </Transition.Child>
 
             <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <div className={`flex min-h-full items-center justify-center p-4 text-center ${isJobPage ? 'min-h-min ' : ""}`}>
                 <Transition.Child
                   as={Fragment}
                   enter="ease-out duration-300"
@@ -53,7 +62,10 @@ export default function Modal({
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-sm bg-light-100 p-4 text-left align-middle shadow-xl transition-all dark:bg-dark-500">
+                  <Dialog.Panel className={`${isJobPage ? 'w-full max-w-3xl transform overflow-hidden rounded-sm bg-light-100 p-4 text-left align-middle shadow-xl transition-all dark:bg-dark-500' : 'max-w-md'}`}>
+
+
+
                     {children}
                   </Dialog.Panel>
                 </Transition.Child>

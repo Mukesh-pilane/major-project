@@ -52,11 +52,11 @@ const InfoCard = ({
 const ApplyForm = ({ job }: { job: Job }) => {
 
   return (
-    <div className=" rounded-md bg-white p-4">
-    <h2 className=" text-[clamp(1rem,10vw,2rem)] font-medium capitalize">
-      {job.title}
+    <div className=" rounded-md bg-white  p-4">
+    <h2 className=" text-[clamp(1rem,10vw,1.3rem)] font-medium capitalize">
+    Applying for {job.title}
     </h2>
-    <h1>sasa</h1>
+    <h1>{job.company.name}</h1>
     </div>
      
    
