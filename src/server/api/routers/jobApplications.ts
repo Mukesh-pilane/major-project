@@ -62,13 +62,12 @@ export const jobApplicationsRouter = createTRPCRouter({
       );
 
       // Create a record in the database linking the user, job post, and file ID
-      ctx.prisma.jobApplication.create({
+      return ctx.prisma.jobApplication.create({
         data: {
           fileId: fileId as string,
           userId,
           jobId,
         },
       });
-      return true
     }),
 });
