@@ -19,9 +19,17 @@ import {
 } from "react-icons/bi";
 import { BsEmojiNeutral } from "react-icons/bs";
 import { motionContainer, motionItem } from "~/utils/animation";
-import type { RouterOutputs, api } from "~/utils/api";
+import type { RouterOutputs} from "~/utils/api";
+import {api} from "~/utils/api";
 
 type Job = RouterOutputs["job"]["get"];
+type UploadResumeResult = RouterOutputs["jobApplications"]["uploadResume"];
+
+type UploadResumeArgs = {
+  file?: Buffer;
+  userId?: string;
+  jobId?: string;
+};
 
 const InfoCard = ({
   prefix,
@@ -86,16 +94,22 @@ const ApplyForm = ({ job }: { job: Job }) => {
     formData.append("userId", userId);
     formData.append("jobId", jobId);
 
-    // try {
-    //   // Call the uploadResume mutation using api.jobApplications.uploadResume
-    //   const result = await api.jobApplications.uploadResume(formData);
+    try {
 
-    //   // Handle success or result here
-    //   console.log("Upload successful", result);
-    // } catch (error) {
-    //   // Handle error here
-    //   console.error("Upload failed", error);
-    // }
+      const args: UploadResumeArgs = {
+        file: selectedFile as Buffer, // The selected file to upload (a Buffer or a file object)
+        userId: "12345", // Replace with the actual user ID
+        jobId: "67890", // Replace with the actual job ID
+      };
+      // Call the uploadResume mutation using api.jobApplications.uploadResume
+      // const result : boolean = await api.jobApplications.uploadResume.useMutation(args)
+
+      // Handle success or result here
+      console.log("Upload successful");
+    } catch (error) {
+      // Handle error here
+      console.error("Upload failed", error);
+    }
   }
   return (
     <motion.div
