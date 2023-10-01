@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import PrimaryButton from "~/components/button/PrimaryButton";
 import Modal from "~/components/modal/Modal";
 import React from "react";
 import { Field, Form, Formik } from "formik";
@@ -67,23 +68,44 @@ const InfoCard = ({
 const SideBarV2 = ({ job }: { job: Job }) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const [xyzBuffer, setXyzBuffer] = useState(null);
   const { data: session } = useSession();
 
-
+ // Call the uploadResume mutation using api.jobApplications.uploadResume
+ const result= api.jobApplications.uploadResume.useMutation({
+    onError: (e) => {
+      toast.error(`Something went wrong ${e.message}`);
+    },
+    onSuccess: () => {
+      toast.success(`SuccessFully applied for job`);
+    },
+  });
   const handlePdfChange = (file: File) => {
     setSelectedFile(file);
+    
     };
   const handleUpload = async () => {
+
     if (!selectedFile || !session.user.id || !job.id) {
       // Handle validation or error here
       return;
     }
+
 
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("userId", session.user.id);
     formData.append("jobId", job.id);
 
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const buffer = event.target?.result as ArrayBuffer;
+      
+setXyzBuffer(buffer);
+console.log(xyzBuffer);
+
+    };
+      reader.readAsArrayBuffer(selectedFile);
     try {
 
       const args: UploadResumeArgs = {
@@ -91,15 +113,9 @@ const SideBarV2 = ({ job }: { job: Job }) => {
         userId: "12345", // Replace with the actual user ID
         jobId: "67890", // Replace with the actual job ID
       };
-      // Call the uploadResume mutation using api.jobApplications.uploadResume
-      const result  = await api.jobApplications.uploadResume.useMutation({
-        onError: (e) => {
-          toast.error(`Something went wrong ${e.message}`);
-        },
-        onSuccess: () => {
-          toast.success(`SuccessFully applied for job`);
-        },
-      });
+      
+      void result.mutate({file: xyzBuffer,userId:session.user.id,jobId:job.id})
+
       // Handle success or result here
       console.log("Upload successful");
     } catch (error) {
@@ -115,7 +131,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
   
         <div className=" rounded-md bg-white  p-4">
           <h2 className=" text-[clamp(1rem,10vw,1.3rem)] font-medium capitalize">
-            Applying for {job.id}
+            Applying for {job.title}
           </h2>
           <h1>{job.company.name}</h1>
         </div>
@@ -126,13 +142,19 @@ const SideBarV2 = ({ job }: { job: Job }) => {
             linkedin: "",
           }}
           onSubmit={() => {
-            
+        handleUpload();
             }
           }
         >
   
   <Form className=" grid gap-4">
             <PdfUpload onPdfChange={handlePdfChange} seleltedFile={selectedFile}/>
+            <PrimaryButton
+            className="mt-4"
+            type="submit"
+          >
+            Submit
+          </PrimaryButton>
             </Form>
         </Formik>
   
