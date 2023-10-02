@@ -7,6 +7,7 @@ const PdfUpload = ({onPdfChange, seleltedFile }) => {
 
   const onDrop: OnDropFunction = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
+
     onPdfChange(file)
   }, []);
 

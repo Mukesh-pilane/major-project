@@ -24,6 +24,7 @@ import type { RouterOutputs} from "~/utils/api";
 import { toast } from "react-hot-toast";
 import {api} from "~/utils/api";
 import PdfUpload from "~/components/input/PdfUpload";
+import { useSession } from "next-auth/react";
 
 type Job = RouterOutputs["job"]["get"];
 type UploadResumeResult = RouterOutputs["jobApplications"]["uploadResume"];
@@ -66,22 +67,22 @@ const InfoCard = ({
 const SideBarV2 = ({ job }: { job: Job }) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [userId, setUserId] = useState(""); // Replace with the actual user ID
-  const [jobId, setJobId] = useState(""); // Replace with the actual job ID
+  const { data: session } = useSession();
+
 
   const handlePdfChange = (file: File) => {
     setSelectedFile(file);
     };
   const handleUpload = async () => {
-    if (!selectedFile || !userId || !jobId) {
+    if (!selectedFile || !session.user.id || !job.id) {
       // Handle validation or error here
       return;
     }
 
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("userId", userId);
-    formData.append("jobId", jobId);
+    formData.append("userId", session.user.id);
+    formData.append("jobId", job.id);
 
     try {
 
@@ -114,7 +115,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
   
         <div className=" rounded-md bg-white  p-4">
           <h2 className=" text-[clamp(1rem,10vw,1.3rem)] font-medium capitalize">
-            Applying for {job.title}
+            Applying for {job.id}
           </h2>
           <h1>{job.company.name}</h1>
         </div>
