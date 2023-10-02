@@ -16,7 +16,6 @@ export default function Modal({
     // Check if the URL contains "/job"
   const  isJobPage = searchParams.includes("/job");
 
-console.log(isJobPage);
 
 
 

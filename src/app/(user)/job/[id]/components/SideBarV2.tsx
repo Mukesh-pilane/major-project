@@ -71,10 +71,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
 
   const handlePdfChange = (file: File) => {
     setSelectedFile(file);
-
-    
-  };
-  console.log(selectedFile);
+    };
   const handleUpload = async () => {
     if (!selectedFile || !userId || !jobId) {
       // Handle validation or error here
@@ -99,7 +96,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
           toast.error(`Something went wrong ${e.message}`);
         },
         onSuccess: () => {
-          toast.success(`SuccessFully applied for job listing`);
+          toast.success(`SuccessFully applied for job`);
         },
       });
       // Handle success or result here
@@ -134,7 +131,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
         >
   
   <Form className=" grid gap-4">
-            <PdfUpload   onChange={handlePdfChange} />
+            <PdfUpload onPdfChange={handlePdfChange} seleltedFile={selectedFile}/>
             </Form>
         </Formik>
   

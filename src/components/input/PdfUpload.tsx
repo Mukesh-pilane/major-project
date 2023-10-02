@@ -3,16 +3,13 @@ import { useDropzone } from "react-dropzone";
 
 type OnDropFunction = (acceptedFiles: File[]) => void;
 
-const PdfUpload = ({ onChange }: { onChange: (file: File) => void }) => {
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+const PdfUpload = ({onPdfChange, seleltedFile }) => {
 
   const onDrop: OnDropFunction = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
-    console.log(file);
-    
-    setPdfFile(file);
-    onChange(file);
-  }, [onChange]);
+    onPdfChange(file)
+  }, []);
+
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -28,9 +25,9 @@ const PdfUpload = ({ onChange }: { onChange: (file: File) => void }) => {
           Drag & drop PDF file, or click to select
         </p>
       </div>
-      {pdfFile ? (
+      {seleltedFile ? (
         <div className="mx-auto">
-          <p className="mx-auto">{pdfFile.name}</p>
+          <p className="mx-auto">{seleltedFile.name}</p>
         </div>
       ) : (
         <p className="mx-auto">----</p>
