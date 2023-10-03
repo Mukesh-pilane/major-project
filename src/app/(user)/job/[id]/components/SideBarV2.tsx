@@ -84,45 +84,38 @@ const SideBarV2 = ({ job }: { job: Job }) => {
     setSelectedFile(file);
     
     };
-  const handleUpload = async () => {
-
-    if (!selectedFile || !session.user.id || !job.id) {
-      // Handle validation or error here
-      return;
-    }
-
-
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("userId", session.user.id);
-    formData.append("jobId", job.id);
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const buffer = event.target?.result as ArrayBuffer;
-      
-setXyzBuffer(buffer);
-console.log(xyzBuffer);
-
-    };
-      reader.readAsArrayBuffer(selectedFile);
-    try {
-
-      const args: UploadResumeArgs = {
-        file: selectedFile as Buffer, // The selected file to upload (a Buffer or a file object)
-        userId: "12345", // Replace with the actual user ID
-        jobId: "67890", // Replace with the actual job ID
+    const handleUpload = async () => {
+      if (!selectedFile || !session.user.id || !job.id) {
+        // Handle validation or error here
+        return;
+      }
+    
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        const buffer = event.target?.result as ArrayBuffer;
+        const base64Data = Buffer.from(buffer).toString("base64");
+    
+        try {
+          // Call the uploadResume mutation using trpc
+          result.mutate({
+            file: base64Data, // Send the file as a base64-encoded string
+            userId: session.user.id,
+            jobId: job.id,
+          });
+    
+          // Handle success or result here
+          toast.success(`Successfully applied for the job`);
+          console.log("Upload successful", result);
+        } catch (error) {
+          // Handle error here
+          toast.error(`Something went wrong: ${error.message}`);
+          console.error("Upload failed", error);
+        }
       };
-      
-      void result.mutate({file: xyzBuffer,userId:session.user.id,jobId:job.id})
-
-      // Handle success or result here
-      console.log("Upload successful");
-    } catch (error) {
-      // Handle error here
-      console.error("Upload failed", error);
-    }
-  }
+    
+      reader.readAsArrayBuffer(selectedFile);
+    };
+    
 
   const ApplyForm = ({ job }: { job: Job }) => {
 
