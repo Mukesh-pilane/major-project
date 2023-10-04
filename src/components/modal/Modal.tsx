@@ -11,6 +11,7 @@ export default function Modal({
 }: {
   children: ReactNode;
   button: ReactNode;
+
 }) {
   const searchParams = usePathname()
     // Check if the URL contains "/job"
@@ -61,7 +62,7 @@ export default function Modal({
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className={`${isJobPage ? 'w-full max-w-3xl transform overflow-hidden rounded-sm bg-light-100 p-4 text-left align-middle shadow-xl transition-all dark:bg-dark-500' : 'max-w-md'}`}>
+                  <Dialog.Panel  className={`${isJobPage ? 'w-full max-w-3xl transform overflow-hidden rounded-sm bg-light-100 p-4 text-left align-middle shadow-xl transition-all dark:bg-dark-500' : 'max-w-md'}`}>
 
 
 

@@ -103,8 +103,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
             jobId: job.id,
           });
     
-          // Handle success or result here
-          toast.success(`Successfully applied for the job`);
+   
           console.log("Upload successful", result);
         } catch (error) {
           // Handle error here
