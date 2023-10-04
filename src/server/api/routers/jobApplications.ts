@@ -3,6 +3,8 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import mongoose from "mongoose";
 import { Buffer } from "buffer"; 
+import { prisma } from "~/server/db";
+
 // Connect to MongoDB
 const connectToMongoDB = async () => {
   await mongoose.connect("mongodb+srv://mukeshpilane:123mukesh@cluster0.83vr0ru.mongodb.net/major-project?retryWrites=true&w=majority", {
@@ -83,5 +85,16 @@ export const jobApplicationsRouter = createTRPCRouter({
         throw new Error("Failed to upload resume");
       }
     }),
-    
+    getUserJobApplications : protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ input }) => {
+      return prisma.jobApplication.findMany({
+        where: {
+          userId: input.id,
+        },
+        include: {
+          job:true
+        },
+      });
+    }),
 });
