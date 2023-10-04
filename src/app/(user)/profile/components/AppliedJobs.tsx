@@ -13,7 +13,6 @@ const AppliedJobs = () => {
   return (
     <div className="flex h-full w-full items-center justify-center gap-6">
       <h2 className=" md:text-4xl">Welcome {session?.user.name}</h2>
-    
       <h1>Not Applied to any jobs</h1>
     </div>
   );
