@@ -68,9 +68,20 @@ const InfoCard = ({
 const SideBarV2 = ({ job }: { job: Job }) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [xyzBuffer, setXyzBuffer] = useState(null);
   const { data: session } = useSession();
+  const [isApplied, setIsApplied] = useState(false)
+  // const fetchIsApplied = async ()=>{
+  // const res = api.jobApplications.hasUserAppliedToAnyJob.useQuery({userId: session?.user.id, jobId: job.id})
+  // setIsApplied(res?.data.length > 0)
+  // console.log(res.data.length)
+  
+  // }
+  // fetchIsApplied();
+  console.log(job)
 
+
+
+  
  // Call the uploadResume mutation using api.jobApplications.uploadResume
  const result= api.jobApplications.uploadResume.useMutation({
     onError: (e) => {
@@ -103,8 +114,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
             jobId: job.id,
           });
     
-          // Handle success or result here
-          toast.success(`Successfully applied for the job`);
+   
           console.log("Upload successful", result);
         } catch (error) {
           // Handle error here
@@ -245,7 +255,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
               }}
               className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 px-10 py-3 text-white"
             >
-              Apply Here <BiLink size={18} />
+              {isApplied ? "Applied" : "Apply Here"} <BiLink size={18} />
             </motion.p>
           }
         >

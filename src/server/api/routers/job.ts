@@ -53,7 +53,7 @@ export const jobRouter = createTRPCRouter({
 
   //Get single Jobs listing
   get: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ id: z.string()}))
     .query(({ input }) => {
       return prisma.job.findUnique({
         where: {

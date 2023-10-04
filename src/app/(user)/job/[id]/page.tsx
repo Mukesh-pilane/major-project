@@ -47,11 +47,13 @@ const JobPage = async ({ params: { id } }: Params) => {
   const job = await prisma.job.findUnique({
     where: {
       id: id,
+
     },
     include: {
       category: true,
       subCategory: true,
       company: true,
+      appliedCandidates:true
     },
   });
   if (!job.approved) return <NotApproved />;

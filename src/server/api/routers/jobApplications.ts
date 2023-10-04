@@ -93,7 +93,11 @@ export const jobApplicationsRouter = createTRPCRouter({
           userId: input.id,
         },
         include: {
-          job:true
+          job:{
+            include:{
+              company:true
+            }
+          }
         },
       });
     }),
@@ -101,15 +105,12 @@ export const jobApplicationsRouter = createTRPCRouter({
     .input(z.object({ userId: z.string(), jobId: z.string() }))
     .query(async ({ input }) => {
       // Check if the user has applied to any job by querying the jobApplication model
-      const applications = await prisma.jobApplication.findMany({
+      return prisma.jobApplication.findMany({
         where: {
           userId : input.userId,
           jobId: input.jobId
         },
       });
-
-      // Return true if there are any applications, otherwise return false
-      return applications.length > 0;
     })
 
 });
