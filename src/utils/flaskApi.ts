@@ -22,9 +22,12 @@ export function fetchData(endpoint) {
 export function rankResume(file) {
   // Construct the full API URL
   const apiUrl = `${BASE_API_URL}/ranker`;
-
+  console.log(file.length,"in");
+  
   const formData = new FormData();
   formData.append('file', file);
+  
+  
 
   return axios.post(apiUrl, formData, {
       headers: {
@@ -33,11 +36,10 @@ export function rankResume(file) {
     })
     .then(response => {
       // Handle the successful response
-      console.log(response)
       return response.data;
     })
     .catch(error => {
       // Handle any errors that occur during the request
-      throw error;
+      // throw error;
     });
 }

@@ -1,13 +1,18 @@
 from flask import Flask, jsonify, request
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), './')))
 from flask_cors import CORS 
 from pymongo import MongoClient
 import gridfs
 from bson.objectid import ObjectId
 from bson.json_util import dumps
 import base64
-from io import BytesIO
-from utils import classifier
+import io 
+from utils import predict_resume_category, pdfTextExtractor, cosine_similarity
 import fitz
+
+
 
 app = Flask(__name__)
 
@@ -21,19 +26,22 @@ fs = gridfs.GridFS(db)
 def hello():
     return jsonify(message='Hello, World!')
 
-@app.route('/api/ranker', methods=['post'])
+@app.route('/api/ranker', methods=['POST'])
 def resumeRank():
     if(request.method == 'POST'):
-        if 'file' not in request.files:
+        if 'file' not in request.form:
             return "No file part", 404
-        file = request.files['file']
-        if file.filename == '':
-            return "No selected file", 404
+        base64_string = request.form["file"]
+        job_description = request.form["job_description"]
+        binary_data = base64.b64decode(base64_string)
+        file = io.BytesIO(binary_data)
         if file:
         # Process the uploaded PDF file using the "fitz" module
             pdf_document = fitz.open(stream=file.read(), filetype="pdf")
-            category = classifier(pdf_document)
-            return {"category" : category}, 200
+            resume_text = pdfTextExtractor(pdf_document)
+            category = predict_resume_category(resume_text)
+            rankScore = cosine_similarity(job_description, resume_text)
+            return {"category" : category, "Score":rankScore}, 200
 
 if __name__ == '__main__':
     app.run(debug=True)

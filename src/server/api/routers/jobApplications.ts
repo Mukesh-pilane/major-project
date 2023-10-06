@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { Buffer } from "buffer"; 
 import { prisma } from "~/server/db";
 import { rankResume } from "~/utils/flaskApi";
+import { log } from "console";
 
 // Connect to MongoDB
 const connectToMongoDB = async () => {
@@ -61,13 +62,17 @@ export const jobApplicationsRouter = createTRPCRouter({
           mimetype: "application/pdf",
           buffer: file, // The Buffer content
         };
-
+        
         // Store the resume in MongoDB using GridFS
         const fileId = await storeResumeInMongoDB(
           fileObject.buffer,
           fileObject.originalname
         );
-        rankResume(file)
+        const copied_file= Buffer.from(file);
+        const data = await rankResume(copied_file)
+        
+        console.log(data);
+        
         // Create a record in the database linking the user, job post, and file ID
         const createdJobApplication = await ctx.prisma.jobApplication.create({
           data: {
