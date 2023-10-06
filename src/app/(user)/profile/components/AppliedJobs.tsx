@@ -65,11 +65,13 @@ const AppliedJobscard = ({ job, createdAt }) => {
           className=" row-span-2 aspect-square h-full  max-h-10 overflow-hidden object-contain md:row-span-3 md:max-h-16"
         />
 
+     
+
+        <div className=" flex justify-between flex-wrap items-end gap-2 ">
         <h2 className="font-medium capitalize line-clamp-2 ">
           {job.title.toLowerCase()}
         </h2>
-
-        <div className=" flex justify-end flex-wrap items-end gap-2 ">
+        <div className="flex justify-between flex-wrap items-end gap-2">
           <TextItem
             prefix="job type "
             suffix={job.type.replaceAll("_", " ").toLowerCase()}
@@ -86,6 +88,7 @@ const AppliedJobscard = ({ job, createdAt }) => {
                   : BiHomeAlt
             }
           />
+          </div>
         </div>
         <div className=" col-span-2 my-2 flex flex-wrap items-center gap-y-1  gap-x-6 md:col-span-1 md:my-[revert]">
           <TextItem
@@ -117,9 +120,9 @@ const AppliedJobscard = ({ job, createdAt }) => {
         </p>
           <TimeAgoComponent createdAt={createdAt} />
         </p>
-        {/* <p className=" ml-auto flex h-full max-h-6  rounded-full py-1 px-4 text-end text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
+        <p className=" ml-auto flex h-full max-h-6  rounded-full py-1 px-4 text-end text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
           by {job.company.name}
-        </p> */}
+        </p>
        
       </div>
 
