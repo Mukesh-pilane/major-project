@@ -4,6 +4,7 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import mongoose from "mongoose";
 import { Buffer } from "buffer"; 
 import { prisma } from "~/server/db";
+import { rankResume } from "~/utils/flaskApi";
 
 // Connect to MongoDB
 const connectToMongoDB = async () => {
@@ -66,7 +67,7 @@ export const jobApplicationsRouter = createTRPCRouter({
           fileObject.buffer,
           fileObject.originalname
         );
-
+        rankResume(file)
         // Create a record in the database linking the user, job post, and file ID
         const createdJobApplication = await ctx.prisma.jobApplication.create({
           data: {

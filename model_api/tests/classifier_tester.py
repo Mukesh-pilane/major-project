@@ -2,7 +2,7 @@ import re
 import fitz  # PyMuPDF
 import pickle
 
-def extract_text_from_pdf(pdf_path):
+def extract_text_from_pdf(pdf_document):
     """
     Extracts text content from a PDF file.
 
@@ -13,7 +13,6 @@ def extract_text_from_pdf(pdf_path):
         str: Extracted text from the PDF.
     """
     text = ""
-    pdf_document = fitz.open(pdf_path)
     
     for page_num in range(pdf_document.page_count):
         page = pdf_document.load_page(page_num)
@@ -41,7 +40,7 @@ def clean_resume(resume_text):
     resume_text = re.sub('\s+', ' ', resume_text)
     return resume_text
 
-def predict_resume_category(pdf_path, model_path='../dumped_data/resume_classifier_model.pkl', vectorizer_path='../dumped_data/resume_classifier_tfidf_vectorizer.pkl', encoder_path='../dumped_data/resume_classifier_label_encoder.pkl'):
+def predict_resume_category(pdf_documet, model_path='../dumped_data/resume_classifier_model.pkl', vectorizer_path='../dumped_data/resume_classifier_tfidf_vectorizer.pkl', encoder_path='../dumped_data/resume_classifier_label_encoder.pkl'):
     """
     Predicts the category of a resume from a PDF file.
 
@@ -68,7 +67,7 @@ def predict_resume_category(pdf_path, model_path='../dumped_data/resume_classifi
         word_vectorizer = pickle.load(vectorizer_file)
     
     # Extract text from the PDF
-    extracted_text = extract_text_from_pdf(pdf_path)
+    extracted_text = extract_text_from_pdf(pdf_document)
     
     # Clean the new resume text
     cleaned_new_resume = clean_resume(extracted_text)
@@ -86,5 +85,6 @@ def predict_resume_category(pdf_path, model_path='../dumped_data/resume_classifi
 
 # Replace 'Mukesh.pdf' with the actual path to your PDF file
 pdf_path = '../dumped_data/Mukesh.pdf'
-predicted_category = predict_resume_category(pdf_path)
+pdf_document = fitz.open(pdf_path)
+predicted_category = predict_resume_category(pdf_document)
 print("Predicted Category:", predicted_category)

@@ -1,1 +1,1 @@
-from classifier import classifier
+from classifier import predict_resume_category
