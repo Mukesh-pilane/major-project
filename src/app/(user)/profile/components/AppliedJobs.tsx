@@ -13,6 +13,8 @@ import {
   BiRupee,
   BiTimeFive,
 } from "react-icons/bi";
+
+import SecondaryButton from "~/components/button/SecondaryButton";
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import { motion } from "framer-motion";
@@ -158,7 +160,8 @@ const AppliedJobs = () => {
     }, [session, page]);
 
   return (
-    <div className="flex h-full w-full items-start justify-center gap-6">
+    <>
+    <div className="flex w-full items-start justify-center gap-6">
 
       {jobs?.length > 0 ? (
         <ul className="w-full grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-1">
@@ -169,8 +172,30 @@ const AppliedJobs = () => {
       ) : (
         <h1>No jobs applied</h1>
       )}
+        
 
     </div>
+    <div className=" my-6 flex justify-between">
+        {page > 1 && (
+          <SecondaryButton
+            onClick={() => setPage((prev) => prev - 1)}
+            className=" relative mr-auto  w-fit rounded-full bg-dark-500 py-2 text-white shadow-2xl shadow-dark-500/50"
+            disable={getUserJobApplications.isLoading}
+          >
+            Prev
+          </SecondaryButton>
+        )}
+        {hasMore && (
+          <SecondaryButton
+            onClick={() => setPage((prev) => prev + 1)}
+            className=" relative ml-auto  w-fit rounded-full bg-dark-500 py-2 text-white shadow-2xl shadow-dark-500/50"
+            disable={getUserJobApplications.isLoading}
+          >
+            Next
+          </SecondaryButton>
+        )}
+      </div>
+    </>
   );
 };
 
