@@ -31,11 +31,13 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 });
 
 const JobListPage = () => {
+  
   const { data: session } = useSession();
 
   const listJob = api.job.create.useMutation({
-    onSuccess: () => {
+    onSuccess: ( ) => {
       toast.success("Job Listed Successfully");
+
     },
     onError: (e) => {
       toast.error(`Something went wrong  ${e.message}`);
@@ -102,6 +104,7 @@ const JobListPage = () => {
             featured: values.featured,
             userId: session.user.id,
           });
+                
         }}
       >
         {({ errors, touched, values }) => (

@@ -8,9 +8,11 @@ import { usePathname } from 'next/navigation'
 export default function Modal({
   children,
   button,
+  isApplied
 }: {
   children: ReactNode;
   button: ReactNode;
+isApplied:boolean;
 
 }) {
   const searchParams = usePathname()
@@ -32,7 +34,7 @@ export default function Modal({
 
   return (
     <>
-      <SecondaryButton type="button" onClick={openModal}>
+      <SecondaryButton type="button" onClick={openModal} disable={isApplied}>
         {button}
       </SecondaryButton>
 

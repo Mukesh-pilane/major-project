@@ -102,6 +102,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
     },
     onSuccess: () => {
       toast.success(`SuccessFully applied for job`);
+      setIsApplied(true);
     },
   });
   const handlePdfChange = (file: File) => {
@@ -271,6 +272,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
               {isApplied ? "Applied" : "Apply Here"} <BiLink size={18} />
             </motion.p>
           }
+          isApplied={isApplied}
         >
 
           <ApplyForm job={job} />

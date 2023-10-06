@@ -13,6 +13,8 @@ import {
   BiRupee,
   BiTimeFive,
 } from "react-icons/bi";
+
+import SecondaryButton from "~/components/button/SecondaryButton";
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import { motion } from "framer-motion";
@@ -65,11 +67,13 @@ const AppliedJobscard = ({ job, createdAt }) => {
           className=" row-span-2 aspect-square h-full  max-h-10 overflow-hidden object-contain md:row-span-3 md:max-h-16"
         />
 
+     
+
+        <div className=" flex justify-between flex-wrap items-end gap-2 ">
         <h2 className="font-medium capitalize line-clamp-2 ">
           {job.title.toLowerCase()}
         </h2>
-
-        <div className=" flex justify-end flex-wrap items-end gap-2 ">
+        <div className="flex justify-between flex-wrap items-end gap-2">
           <TextItem
             prefix="job type "
             suffix={job.type.replaceAll("_", " ").toLowerCase()}
@@ -86,6 +90,7 @@ const AppliedJobscard = ({ job, createdAt }) => {
                   : BiHomeAlt
             }
           />
+          </div>
         </div>
         <div className=" col-span-2 my-2 flex flex-wrap items-center gap-y-1  gap-x-6 md:col-span-1 md:my-[revert]">
           <TextItem
@@ -117,9 +122,9 @@ const AppliedJobscard = ({ job, createdAt }) => {
         </p>
           <TimeAgoComponent createdAt={createdAt} />
         </p>
-        {/* <p className=" ml-auto flex h-full max-h-6  rounded-full py-1 px-4 text-end text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
+        <p className=" ml-auto flex h-full max-h-6  rounded-full py-1 px-4 text-end text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
           by {job.company.name}
-        </p> */}
+        </p>
        
       </div>
 
@@ -155,7 +160,8 @@ const AppliedJobs = () => {
     }, [session, page]);
 
   return (
-    <div className="flex h-full w-full items-start justify-center gap-6">
+    <>
+    <div className="flex w-full items-start justify-center gap-6">
 
       {jobs?.length > 0 ? (
         <ul className="w-full grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-1">
@@ -166,8 +172,30 @@ const AppliedJobs = () => {
       ) : (
         <h1>No jobs applied</h1>
       )}
+        
 
     </div>
+    <div className=" my-6 flex justify-between">
+        {page > 1 && (
+          <SecondaryButton
+            onClick={() => setPage((prev) => prev - 1)}
+            className=" relative mr-auto  w-fit rounded-full bg-dark-500 py-2 text-white shadow-2xl shadow-dark-500/50"
+            disable={getUserJobApplications.isLoading}
+          >
+            Prev
+          </SecondaryButton>
+        )}
+        {hasMore && (
+          <SecondaryButton
+            onClick={() => setPage((prev) => prev + 1)}
+            className=" relative ml-auto  w-fit rounded-full bg-dark-500 py-2 text-white shadow-2xl shadow-dark-500/50"
+            disable={getUserJobApplications.isLoading}
+          >
+            Next
+          </SecondaryButton>
+        )}
+      </div>
+    </>
   );
 };
 
