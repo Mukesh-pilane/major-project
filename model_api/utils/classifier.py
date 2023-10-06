@@ -1,10 +1,10 @@
 import re
 import pickle
-from sklearn.exceptions import InconsistentVersionWarning
-import warnings
+# from sklearn.exceptions import InconsistentVersionWarning
+# import warnings
 
-# Filter out the InconsistentVersionWarning for LabelBinarizer
-warnings.filterwarnings("ignore", category=InconsistentVersionWarning, module="sklearn.base")
+# # Filter out the InconsistentVersionWarning for LabelBinarizer
+# warnings.filterwarnings("ignore", category=InconsistentVersionWarning, module="sklearn.base")
 
 
 def clean_resume(resume_text):

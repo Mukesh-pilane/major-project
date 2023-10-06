@@ -35,6 +35,15 @@ const UserJobCardControl = ({ job }) => {
         {job.approved ? "Approved" : "Pending"}
       </p>
 
+      {job.approved && <p
+        className={` flex w-fit items-center justify-center rounded-full px-4 text-xs text-white ${
+          job.approved ? "bg-green-500" : ""
+        }`}
+      >
+        {job.approved ? "View Candidates" :""}
+      </p>
+         }
+
       <ConfirmModal
         title="Delete"
         loading={deleteJob.isLoading}
