@@ -86,9 +86,37 @@ export const jobApplicationsRouter = createTRPCRouter({
       }
     }),
     getUserJobApplications : protectedProcedure
+    .input(z.object({ skip: z.number().default(0), userId: z.string() }))
+    .mutation(async ({ input }) => {
+      const limit = 5;
+      const appliedJobs = await prisma.jobApplication.findMany({
+        where: {
+          userId: input.userId,
+        },
+        include: {
+          job:{
+            include:{
+              company:true
+            }
+          }
+        },
+        orderBy: [{ createdAt: "desc" }],
+        take: limit + 1, // fetch one more tweet than needed
+        skip: input.skip || 0,
+      });
+      const hasMore = appliedJobs?.length > limit;
+      if (hasMore) {
+        appliedJobs.pop();
+      }
+      return {
+        appliedJobs,
+        hasMore,
+      };
+    }),
+    dummy:protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ input }) => {
-      return prisma.jobApplication.findMany({
+      const x = prisma.jobApplication.findFirst({
         where: {
           userId: input.id,
         },
@@ -100,12 +128,13 @@ export const jobApplicationsRouter = createTRPCRouter({
           }
         },
       });
+      return x
     }),
     hasUserAppliedToAnyJob : protectedProcedure
     .input(z.object({ userId: z.string(), jobId: z.string() }))
-    .query(async ({ input }) => {
+    .mutation(async ({ input }) => {
       // Check if the user has applied to any job by querying the jobApplication model
-      return prisma.jobApplication.findMany({
+      return prisma.jobApplication.findFirst({
         where: {
           userId : input.userId,
           jobId: input.jobId

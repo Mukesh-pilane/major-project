@@ -6,6 +6,8 @@ import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import SecondaryButton from "~/components/button/SecondaryButton";
 type Job = RouterOutputs["job"]["get"];
+
+
 const UserPostedJobs = () => {
   const { data: session } = useSession();
   const getUserJobs = api.job.getUserJobs.useMutation();

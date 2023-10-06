@@ -14,7 +14,12 @@ import {
   BiTimeFive,
 } from "react-icons/bi";
 import { api } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
 import { motion } from "framer-motion";
+
+type Job = RouterOutputs["jobApplications"]["dummy"]; // type for each appliedjob or jobs state variable
+// type Job = 
+
 
 const TextItem = ({
   prefix,
@@ -124,35 +129,37 @@ const AppliedJobscard = ({ job, createdAt }) => {
 };
 
 const AppliedJobs = () => {
-  
-  const [jobsdata, setJobsdata] = useState([]);
   const { data: session } = useSession();
-      // Fetch job data and update the state
-      const fetchJobData = async () => {
-        try {
-          const response = await api.jobApplications.getUserJobApplications.useQuery({
-            id: session.user.id,
-          });
-          if (response?.data) {
-            setJobsdata(response.data);
-            console.log(response?.data[0]);
-            
-          }
-        } catch (error) {
-          console.error("Error fetching job data", error);
-        }
-      };
+  const [jobs, setJobs] = useState<Job[]>();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+
+  const getUserJobApplications = api.jobApplications.getUserJobApplications.useMutation();
 
 
-    fetchJobData();
+    const fetchUserJobs = async () => {
+      if (session?.user.id) {
+        const skip = jobs?.length * (page - 1) || 0;
+        const data = await getUserJobApplications.mutateAsync({
+          skip: skip,
+          userId: session?.user.id,
+        });
+        setJobs(data.appliedJobs);
+        console.log(jobs)
+        setHasMore(data.hasMore);
+      }
+    };
 
+    useEffect(() => {
+      fetchUserJobs();
+    }, [session, page]);
 
   return (
     <div className="flex h-full w-full items-start justify-center gap-6">
 
-      {jobsdata.length > 0 ? (
+      {jobs?.length > 0 ? (
         <ul className="w-full grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-1">
-          {jobsdata.map((job) => (
+          {jobs?.map((job) => (
             <AppliedJobscard key={job.job.id} job={job.job} createdAt={job.createdAt} />
           ))}
         </ul>

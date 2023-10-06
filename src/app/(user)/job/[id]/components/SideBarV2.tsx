@@ -1,19 +1,18 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import PrimaryButton from "~/components/button/PrimaryButton";
 import Modal from "~/components/modal/Modal";
 import React from "react";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { IconType } from "react-icons";
 import {
   BiBook,
   BiBriefcase,
   BiBuildings,
   BiHomeAlt,
-  BiCloset,
   BiLink,
   BiLinkExternal,
   BiMapPin,
@@ -26,7 +25,7 @@ import { toast } from "react-hot-toast";
 import {api} from "~/utils/api";
 import PdfUpload from "~/components/input/PdfUpload";
 import { useSession } from "next-auth/react";
-
+import axios from "axios";
 type Job = RouterOutputs["job"]["get"];
 type UploadResumeResult = RouterOutputs["jobApplications"]["uploadResume"];
 
@@ -70,14 +69,28 @@ const SideBarV2 = ({ job }: { job: Job }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const { data: session } = useSession();
   const [isApplied, setIsApplied] = useState(false)
-  // const fetchIsApplied = async ()=>{
-  // const res = api.jobApplications.hasUserAppliedToAnyJob.useQuery({userId: session?.user.id, jobId: job.id})
-  // setIsApplied(res?.data.length > 0)
-  // console.log(res.data.length)
+  const hasApplied = api.jobApplications.hasUserAppliedToAnyJob.useMutation({
+    onSuccess: (data) => {
+      if (data){
+        setIsApplied(true)
+      }
+    },
+  })
+
+ 
+
+  const checkApplied = () =>{
+    hasApplied.mutate({
+      userId: session?.user.id, jobId: job?.id
+    });
+  }
+  useEffect(() => {
+    if(session){
+    checkApplied();
+    }
+  }, [session]);
+
   
-  // }
-  // fetchIsApplied();
-  console.log(job)
 
 
 
