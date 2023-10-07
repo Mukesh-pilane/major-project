@@ -28,9 +28,8 @@ const UserJobCardControl = ({ job }) => {
   return (
     <div className=" flex gap-4">
       <p
-        className={` flex w-fit items-center justify-center rounded-full px-4 text-xs text-white ${
-          job.approved ? "bg-green-500" : "bg-red-400"
-        }`}
+        className={` flex w-fit items-center justify-center rounded-full px-4 text-xs text-white ${job.approved ? "bg-green-500" : "bg-red-400"
+          }`}
       >
         {job.approved ? "Approved" : "Pending"}
       </p>
@@ -51,6 +50,9 @@ const UserJobCardControl = ({ job }) => {
         button={<AiOutlineDelete size={20} className="text-red-400" />}
         onConfirm={handleDelete}
       />
+
+
+
     </div>
   );
 };
