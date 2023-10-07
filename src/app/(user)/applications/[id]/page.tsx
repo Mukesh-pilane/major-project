@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { prisma } from "~/server/db";
 import NotFound from "./components/NotFound";
 import NoApplications from "./components/NoApplications";
-import { api } from "~/utils/api";
 
 type Params = {
   params: {
