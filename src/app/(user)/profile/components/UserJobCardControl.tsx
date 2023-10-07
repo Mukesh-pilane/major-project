@@ -1,5 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { AiOutlineDelete } from "react-icons/ai";
 import ConfirmModal from "~/components/modal/ConfirmModal";
@@ -34,13 +35,20 @@ const UserJobCardControl = ({ job }) => {
         {job.approved ? "Approved" : "Pending"}
       </p>
 
-      {job.approved && <p
-        className={` flex w-fit items-center justify-center rounded-full px-4 text-xs text-white ${
+      {job.approved && 
+      
+      <Link
+      href={`/applications/${job.id}`}
+      className=" cursor-pointer"
+      target={"_blank"}
+    ><p
+        className={` cursor-pointer flex w-fit items-center justify-center rounded-full px-4 text-xs text-white ${
           job.approved ? "bg-green-500" : ""
         }`}
       >
         {job.approved ? "View Candidates" :""}
       </p>
+      </Link>
          }
 
       <ConfirmModal
