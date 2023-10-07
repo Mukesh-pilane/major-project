@@ -33,7 +33,7 @@ export function rankResume(file, jobDescription) {
   return axios.post(apiUrl, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-      },
+      }
     })
     .then(response => {
       // Handle the successful response
@@ -43,4 +43,18 @@ export function rankResume(file, jobDescription) {
       // Handle any errors that occur during the request
       // throw error;
     });
+}
+
+export function getResume(id: string){
+  const apiUrl = `${BASE_API_URL}/getResume`;
+  return axios.post(apiUrl, {
+    id
+  }).then(response => {
+    // Handle the successful response
+    return response.data;
+  })
+  .catch(error => {
+    // Handle any errors that occur during the request
+    throw error;
+  });
 }

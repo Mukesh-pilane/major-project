@@ -77,7 +77,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
     },
   })
 
-  const getresume = api.jobApplications.getResume.useMutation()
+  // const getresume = api.jobApplications.getResume.useMutation()
 
   
 
@@ -275,7 +275,16 @@ const SideBarV2 = ({ job }: { job: Job }) => {
               }}
               className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 px-10 py-3 text-white"
             >
-              {isApplied ? "Applied" : "Apply Here"} <BiLink size={18} />
+              {
+                session?.user.id==job.userId?
+                <Link
+                href={`/applications/${job.id}`}
+                >
+                View Candidates
+                </Link>
+                :
+              (isApplied ? "Applied" : "Apply Here")
+              } <BiLink size={18} />
             </motion.p>
           }
           isApplied={isApplied}

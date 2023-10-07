@@ -3,6 +3,8 @@ import { prisma } from "~/server/db";
 import NotFound from "./components/NotFound";
 import NoApplications from "./components/NoApplications";
 
+import Appliedcandidates from "./components/Appliedcandidates";
+
 type Params = {
   params: {
     id: string;
@@ -41,25 +43,29 @@ export async function generateMetadata({
 export const revalidate = 60;
 
 const JobApplicationsPage = async ({ params: { id } }: Params) => {
-  const jobApplications = await prisma.jobApplication.findMany({
+  const jobApplications = await prisma.job.findMany({
     where: {
       id: id,
     },
     include: {
-      user:true
+      user:true,
+      appliedCandidates:{
+        include:{
+          user:true
+        }
+      }
     },
   });
 
+  console.log(jobApplications);
   
 
-  if (jobApplications.length==0) return <NoApplications />;
+  if (jobApplications.length===0) return <NoApplications />;
   return (
-    <main className=" mx-auto grid h-full w-full max-w-7xl gap-6 px-4 py-4 pb-16 md:grid-cols-[72%_1fr] md:py-10 ">
-        {
-//first user use map to get all data
-        }
-        <div>{jobApplications[0]?.user.name}</div>
-    </main>
+    <>
+     <Appliedcandidates candidates={jobApplications} />
+    </>
+
   );
 };
 
