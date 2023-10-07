@@ -19,13 +19,14 @@ export function fetchData(endpoint) {
 }
 
 // Define a function to upload a PDF file to the Flask API
-export function rankResume(file) {
+export function rankResume(file, jobDescription) {
   // Construct the full API URL
   const apiUrl = `${BASE_API_URL}/ranker`;
   console.log(file.length,"in");
   
   const formData = new FormData();
   formData.append('file', file);
+  formData.append('job_description', jobDescription);
   
   
 

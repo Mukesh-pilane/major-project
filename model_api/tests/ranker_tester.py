@@ -41,6 +41,7 @@ def preprocess_text(text):
 job_description = preprocess_text(job_description_text)
 resume = preprocess_text(resume_text)
 
+
 # Calculate TF-IDF vectors
 tfidf_vectorizer = TfidfVectorizer()
 tfidf_matrix = tfidf_vectorizer.fit_transform([job_description, resume])

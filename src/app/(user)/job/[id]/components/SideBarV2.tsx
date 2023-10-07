@@ -69,7 +69,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const { data: session } = useSession();
   const [isApplied, setIsApplied] = useState(false)
-  const hasApplied = api.jobApplications.hasUserAppliedToAnyJob.useMutation({
+  const hasApplied = api.jobApplications.hasUserAppliedJob.useMutation({
     onSuccess: (data) => {
       if (data){
         setIsApplied(true)
@@ -77,16 +77,21 @@ const SideBarV2 = ({ job }: { job: Job }) => {
     },
   })
 
- 
+  const getresume = api.jobApplications.getResume.useMutation()
+
+  
 
   const checkApplied = () =>{
     hasApplied.mutate({
       userId: session?.user.id, jobId: job?.id
     });
+    
+  
   }
   useEffect(() => {
     if(session){
     checkApplied();
+
     }
   }, [session]);
 
@@ -126,6 +131,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
             file: base64Data, // Send the file as a base64-encoded string
             userId: session.user.id,
             jobId: job.id,
+            jobDescription: job.desc
           });
     
    

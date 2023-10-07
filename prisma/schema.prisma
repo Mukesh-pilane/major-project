@@ -122,11 +122,20 @@ model jobApplication {
   fileId   String    @unique
   userId   String
   jobId    String
+  status Status @default(APPLIED)
+  score Int
+  classified String
   createdAt DateTime @default(now())
   user     User      @relation(fields: [userId], references: [id])
   job  Job   @relation(fields: [jobId], references: [id])
 
   // ... other resume fields
+}
+
+enum Status{
+    APPLIED
+    NOT_SELECTED
+    SELECTED
 }
 
 model Category {

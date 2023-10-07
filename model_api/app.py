@@ -9,7 +9,7 @@ from bson.objectid import ObjectId
 from bson.json_util import dumps
 import base64
 import io 
-from utils import predict_resume_category, pdfTextExtractor, cosine_similarity
+from utils import predict_resume_category, pdfTextExtractor, calculate_cosine_similarity
 import fitz
 
 
@@ -33,15 +33,18 @@ def resumeRank():
             return "No file part", 404
         base64_string = request.form["file"]
         job_description = request.form["job_description"]
+        print("job_description", job_description)
         binary_data = base64.b64decode(base64_string)
         file = io.BytesIO(binary_data)
         if file:
         # Process the uploaded PDF file using the "fitz" module
             pdf_document = fitz.open(stream=file.read(), filetype="pdf")
             resume_text = pdfTextExtractor(pdf_document)
-            category = predict_resume_category(resume_text)
-            rankScore = cosine_similarity(job_description, resume_text)
-            return {"category" : category, "Score":rankScore}, 200
+            print("resume_txt", resume_text)
+            classified = predict_resume_category(resume_text)
+            rankScore = calculate_cosine_similarity(job_description, resume_text)
+            print({"classified" : classified, "Score":rankScore})
+            return {"classified" : classified, "score":rankScore}, 200
 
 if __name__ == '__main__':
     app.run(debug=True)

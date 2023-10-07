@@ -15,9 +15,12 @@ def preprocess_text(text):
 
 
 # Calculate TF-IDF vectors
-def cosine_similarity(job_description_text, resume_text):
+def calculate_cosine_similarity(job_description_text, resume_text):
     job_description = preprocess_text(job_description_text)
     resume = preprocess_text(resume_text)
+    # print('preprossed', type(resume))
+    # print('preprossed', type(job_description))
+
     # Initialize the TF-IDF vectorizer
     tfidf_vectorizer = TfidfVectorizer()
 
