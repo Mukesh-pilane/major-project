@@ -46,5 +46,11 @@ def resumeRank():
             print({"classified" : classified, "Score":rankScore})
             return {"classified" : classified, "score":rankScore}, 200
 
+@app.route("/api/retrieveResume", methods=["POST"])
+def retrieveResume():
+     file_id = ObjectId(request.args['id'])
+     file = fs.get(file_id)
+     file_contents_base64 = base64.b64encode(file.read()).decode('utf-8')
+     return {"file" : file_contents_base64}
 if __name__ == '__main__':
     app.run(debug=True)
