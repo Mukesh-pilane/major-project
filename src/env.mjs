@@ -7,7 +7,7 @@ import { z } from "zod";
 const server = z.object({
   MONGODB_URI: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]),
-  NEXT_AUTH_SECRET: z.string().min(1), // Adjust validation for production
+  NEXTAUTH_SECRET: z.string().min(1), // Adjust validation for production
   NEXT_AUTH_URL: z.preprocess( 
     (str) => process.env.VERCEL_URL ?? str,
     process.env.VERCEL ? z.string().min(1) : z.string().url()
@@ -34,7 +34,7 @@ const client = z.object({
 const processEnv = {
   MONGODB_URI: process.env.MONGODB_URI,
   NODE_ENV: process.env.NODE_ENV,
-  NEXT_AUTH_SECRET: process.env.NEXT_AUTH_SECRET,
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   NEXT_AUTH_URL: process.env.NEXT_AUTH_URL,
   NEXT_GOOGLE_CLIENT_ID: process.env.NEXT_GOOGLE_CLIENT_ID,
   NEXT_GOOGLE_CLIENT_SECRET: process.env.NEXT_GOOGLE_CLIENT_SECRET,
