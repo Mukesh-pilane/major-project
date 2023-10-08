@@ -8,7 +8,7 @@ const server = z.object({
   MONGODB_URI: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]),
   NEXTAUTH_SECRET: z.string().min(1), // Adjust validation for production
-  NEXTAUTH_URL: z.preprocess(
+  NEXT_AUTH_URL: z.preprocess(
     (str) => process.env.VERCEL_URL ?? str,
     process.env.VERCEL ? z.string().min(1) : z.string().url()
   ),
@@ -35,7 +35,7 @@ const processEnv = {
   MONGODB_URI: process.env.MONGODB_URI,
   NODE_ENV: process.env.NODE_ENV,
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  NEXT_AUTH_URL: process.env.NEXT_AUTH_URL,
   NEXT_GOOGLE_CLIENT_ID: process.env.NEXT_GOOGLE_CLIENT_ID,
   NEXT_GOOGLE_CLIENT_SECRET: process.env.NEXT_GOOGLE_CLIENT_SECRET,
   // Define any other environment variables here
