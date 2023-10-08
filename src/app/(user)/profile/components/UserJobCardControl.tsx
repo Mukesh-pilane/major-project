@@ -42,7 +42,7 @@ const UserJobCardControl = ({ job }) => {
       className=" cursor-pointer"
       target={"_blank"}
     ><p
-        className={` cursor-pointer flex w-fit items-center justify-center rounded-full px-4 text-xs text-white ${
+        className={` cursor-pointer flex w-fit items-center justify-center rounded-full px-4 py-1 text-xs text-white ${
           job.approved ? "bg-green-500" : ""
         }`}
       >

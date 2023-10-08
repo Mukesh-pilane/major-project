@@ -263,6 +263,15 @@ const SideBarV2 = ({ job }: { job: Job }) => {
             icon={BiBook}
           />
         )}
+          {
+                session?.user.id==job.userId?
+                <Link
+                href={`/applications/${job.id}`}
+className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 px-10 py-3 text-white"
+                >
+                View Candidates
+                </Link>
+                : (
         <Modal
           button={
             <motion.p
@@ -275,16 +284,9 @@ const SideBarV2 = ({ job }: { job: Job }) => {
               }}
               className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 px-10 py-3 text-white"
             >
-              {
-                session?.user.id==job.userId?
-                <Link
-                href={`/applications/${job.id}`}
-                >
-                View Candidates
-                </Link>
-                :
+            
               (isApplied ? "Applied" : "Apply Here")
-              } <BiLink size={18} />
+               <BiLink size={18} />
             </motion.p>
           }
           isApplied={isApplied}
@@ -292,6 +294,7 @@ const SideBarV2 = ({ job }: { job: Job }) => {
 
           <ApplyForm job={job} />
         </Modal>
+                )}
         {job.applyEmail && (
           <motion.a
             href={`mailto:${job.applyEmail}`}

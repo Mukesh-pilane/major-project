@@ -5,9 +5,11 @@ import { BiSearch } from "react-icons/bi";
 const SearchInput = ({
   onChange,
   value,
+  placeholder
 }: {
   onChange: (string) => void;
   value: string;
+  placeholder:string;
 }) => {
   const [input, setInput] = useState(value ?? "");
 
@@ -15,7 +17,7 @@ const SearchInput = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       onChange(input);
-    }, 2000);
+    }, 1000);
     return () => {
       clearTimeout(timer);
     };
@@ -34,7 +36,7 @@ const SearchInput = ({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className=" block w-full rounded-md bg-white py-2 pl-9 pr-3 shadow-sm ring-1 ring-accent-100 placeholder:italic placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-accent-500 sm:text-sm"
-          placeholder="Search for anything..."
+          placeholder={placeholder}
           type="text"
           name="search"
         />

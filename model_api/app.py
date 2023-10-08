@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-client = MongoClient('mongodb+srv://mukeshpilane:123mukesh@cluster0.83vr0ru.mongodb.net/?retryWrites=true&w=majority')  # Replace with your MongoDB connection string
+client = MongoClient('mongodb+srv://mukeshpilane:123mukesh@cluster0.83vr0ru.mongodb.net/?retryWrites=true&w=majority',tls=False)  # Replace with your MongoDB connection string
 db = client['major-project']  # Replace with your database name
 fs = gridfs.GridFS(db)
 
@@ -52,6 +52,7 @@ def retrieveResume():
      file_id = ObjectId(request.json.get('id'))
      file = fs.get(file_id)
      file_contents_base64 = base64.b64encode(file.read()).decode('utf-8')
+     print("data",file_contents_base64)
      return {"file" : file_contents_base64}
 if __name__ == '__main__':
     app.run(debug=True)
