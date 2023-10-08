@@ -285,7 +285,7 @@ className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-a
               className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-accent-500 px-10 py-3 text-white"
             >
             
-              (isApplied ? "Applied" : "Apply Here")
+              {isApplied ? "Applied" : "Apply Here"}
                <BiLink size={18} />
             </motion.p>
           }
