@@ -56,7 +56,7 @@ const UpdateCompanyModal = ({ company }: { company: Company }) => {
       isApplied={true}
 
     >
-      <Formik
+      <Formik 
         initialValues={{
           name: company.name,
           website: company.website,
