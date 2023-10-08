@@ -7,7 +7,7 @@ import { z } from "zod";
 const server = z.object({
   MONGODB_URI: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]),
-  NEXTAUTH_SECRET: z.string().min(1), // Adjust validation for production
+  NEXTAUTH_SECRET: "testing", // Adjust validation for production
   NEXT_AUTH_URL: z.preprocess( 
     (str) => process.env.VERCEL_URL ?? str,
     process.env.VERCEL ? z.string().min(1) : z.string().url()
