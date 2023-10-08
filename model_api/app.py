@@ -50,7 +50,7 @@ def resumeRank():
 
 @app.route("/api/getResume", methods=["POST"])
 def retrieveResume():
-     print("check args",request.json)
+    #  print("check args",request.json)
      file_id = ObjectId(request.json.get('id'))
      file = fs.get(file_id)
      file_contents_base64 = base64.b64encode(file.read()).decode('utf-8')
