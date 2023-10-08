@@ -13,9 +13,9 @@ const Appliedcandidates = ({ candidates }) => {
     const [search, setSearch] = useState("");
 
     //base64encoded file
-    getResume("65217792f2531c80903d91f1").then((response)=>{
-        console.log(response.file); 
-    })
+    // getResume("65217792f2531c80903d91f1").then((response)=>{
+    //     console.log(response.file); 
+    // })
     return (
         <main className=" mx-auto flex flex-col  w-full h-full  px-4 py-4 pb-16  ">
             <div className="flex justify-between w-[80%] mx-auto items-center h-fit mb-3">
