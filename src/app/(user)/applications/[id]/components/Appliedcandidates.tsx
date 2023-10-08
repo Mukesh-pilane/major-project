@@ -113,7 +113,6 @@ setIsEditing(false);
 
     const handleViewResume=(item)=>{
     //base64encoded file
-    console.log(item);
     
     getResume(item).then((response)=>{
         console.log(response.file); 
