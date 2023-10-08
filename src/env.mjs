@@ -11,7 +11,7 @@ const server = z.object({
   NEXT_AUTH_URL: z.preprocess( 
     (str) => process.env.VERCEL_URL ?? str,
     process.env.VERCEL ? z.string().min(1) : z.string().url()
-  ),
+  ), 
   NEXT_GOOGLE_CLIENT_ID: z.string(),
   NEXT_GOOGLE_CLIENT_SECRET: z.string(),
 }); 
