@@ -184,6 +184,7 @@ export const jobApplicationsRouter = createTRPCRouter({
       });
     })
     ,
+    
     jobStatus: protectedProcedure
     .input(z.object({ applicationId: z.string(), status: z.enum(["APPLIED","NOT_SELECTED", "SELECTED"]) }))
     .mutation(async ({ input }) => {
