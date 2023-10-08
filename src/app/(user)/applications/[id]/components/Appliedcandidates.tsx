@@ -11,6 +11,7 @@ import { getResume } from "~/utils/flaskApi";
 import { api } from "~/utils/api";
 import toast from "react-hot-toast";
 import type { RouterOutputs } from "~/utils/api";
+import PDFViewer from "./PdfViewer";
 
 type Appliedcandidates=RouterOutputs["jobApplications"]["getAppliedCandidatesById"];
 
@@ -35,6 +36,7 @@ const Appliedcandidates = ({ candidates }) => {
           },
     })
     const [flag, setFlag] = useState(false);
+    const [resumeAvailable, setResumeAvailable] = useState("");
 
     useEffect(()=>{
        const fetchdata=async()=>{
@@ -116,6 +118,7 @@ setIsEditing(false);
     
     getResume(item).then((response)=>{
         console.log(response.file); 
+        setResumeAvailable(response.file)
     })
     }
 
@@ -293,6 +296,8 @@ setIsEditing(false);
             </div>
             </div>
           )}
+
+            {resumeAvailable && <PDFViewer base64String={resumeAvailable} />}
           
         </main >
     )
