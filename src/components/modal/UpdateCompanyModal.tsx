@@ -53,6 +53,8 @@ const UpdateCompanyModal = ({ company }: { company: Company }) => {
           <BiEdit size={24} />
         </p>
       }
+      isApplied={true}
+
     >
       <Formik
         initialValues={{
