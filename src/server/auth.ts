@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
-  secret: process.env.NEXT_PUBLIC_SECRET
+  secret: "achchahb"
 };
 
 /**
