@@ -43,7 +43,7 @@ export async function generateMetadata({
 export const revalidate = 60;
 
 const JobApplicationsPage = async ({ params: { id } }: Params) => {
-  const jobApplications = await prisma.job.findMany({
+  const jobApplications = await prisma.job.findFirst({
     where: {
       id: id,
     },
@@ -60,7 +60,7 @@ const JobApplicationsPage = async ({ params: { id } }: Params) => {
   console.log(jobApplications);
   
 
-  if (jobApplications.length===0) return <NoApplications />;
+  if (!jobApplications) return <NoApplications />;
   return (
     <>
      <Appliedcandidates candidates={jobApplications} />

@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_API_URL = 'http://localhost:5000/api';  // Adjust as needed
 
 // Define a function to fetch data from an endpoint
-export function fetchData(endpoint) {
+export function fetchData(endpoint) { 
   // Construct the full API URL
   const apiUrl = `${BASE_API_URL}/${endpoint}`;
 
