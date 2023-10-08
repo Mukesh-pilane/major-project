@@ -8,16 +8,55 @@ import SearchInput from '~/components/input/SearchInput';
 import { RiFilterFill } from "react-icons/ri"
 import { BiEdit } from "react-icons/bi";
 import { getResume } from "~/utils/flaskApi";
+import { api } from "~/utils/api";
+import toast from "react-hot-toast";
+import type { RouterOutputs } from "~/utils/api";
+
+type Appliedcandidates=RouterOutputs["jobApplications"]["getAppliedCandidatesById"];
+
 const Appliedcandidates = ({ candidates }) => {
 
+    const changestatus=api.jobApplications.jobStatus.useMutation({
+        onError: (e) => {
+            toast.error(`Something went wrong ${e.message}`);
+          },
+          onSuccess: () => {
+            toast.success(`SuccessFully Updated Status`);
+            setFlag(!flag);
+          },
+    })
+    const newcandidatedata=api.jobApplications.getAppliedCandidatesById.useMutation({
+        onError: (e) => {
+            toast.error(`Something went wrong ${e.message}`);
+          },
+          onSuccess: () => {
+    
+
+          },
+    })
+    const [flag, setFlag] = useState(false);
+
+    useEffect(()=>{
+       const fetchdata=async()=>{
+
+     
+        const new2= await newcandidatedata.mutateAsync({id:candidates.id})
+         console.log(new2);
+        setNews(new2)
+    } 
+         fetchdata();
+    },[flag])
     const [search, setSearch] = useState("");
+    const [news, setNews] = useState(candidates.appliedCandidates);
+    
     const categories = [
-        { id: 1, name: 'Selected' },
-        { id: 2, name: 'Applied' },
-        { id: 3, name: 'Not Selected' },
+        { id: 1, name: 'SELECTED' },
+        { id: 2, name: 'APPLIED' },
+        { id: 3, name: 'NOT_SELECTED' },
     ];
     const [selectedCategory, setSelectedCategory] = useState("All"); // Initialize with empty string
     const [isEditing, setIsEditing] = useState(false);
+
     const [updateStatus, setUpdateStatus] = useState(null);
     const [selectedCandidate, setSelectedCandidate] = useState(null);
     const [filteredCandidates, setFilteredCandidates] = useState([]); // Initialize with all candidates
@@ -40,10 +79,16 @@ const Appliedcandidates = ({ candidates }) => {
         
       };
       
+const hanldechangestatus=()=>{
+void changestatus.mutate({applicationId:selectedCandidate.id,status:updateStatus})
+console.log(changestatus);
+setIsEditing(false);
 
+
+}
     useEffect(() => {
         // Filter candidates based on the search input
-        const filtered = candidates[0].appliedCandidates.filter(candidate => {
+        const filtered = news.filter(candidate => {
            
            if(search!==""){
             const nameMatch = candidate.user.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
@@ -76,7 +121,7 @@ const Appliedcandidates = ({ candidates }) => {
     }
 
 
-    { console.log(candidates[0].appliedCandidates) }
+    { console.log(candidates) }
     return (
         <main className=" mx-auto relative flex flex-col  w-full h-full  px-4 py-4 pb-16  ">
             <div className="flex justify-between w-[80%] mx-auto items-center h-fit mb-3">
@@ -99,7 +144,7 @@ const Appliedcandidates = ({ candidates }) => {
                                   ? "bg-indigo-600 text-white"
                                   : "bg-white text-gray-600 hover:scale-105 hover:shadow-accent-200/50 hover:ring-2 hover:ring-accent-200"
                               }`}>
-                                {category.name}
+                                {category.name.replace("_"," ")}
                             </div>
                         ))}
                     </ul>
@@ -150,12 +195,12 @@ const Appliedcandidates = ({ candidates }) => {
                                 />
                                 <span className=" font-medium text-lg">{candidatedata.user.name}</span>
                             </div>
-                            <div className="  flex col-span-1 gap-3  justify-center items-center tracking-wider ">
-                                <span className=' bg-indigo-600 px-2 py-1 rounded-md text-yellow-50'>{candidatedata.status}</span>
-                                <BiEdit  onClick={()=>handleEditClick(candidatedata)}  className="text-indigo-600 cursor-pointer" size={23} />
+                            <div className="  flex col-span-1 gap-3  flex-wrap justify-center items-center tracking-wider ">
+                                <span className=' bg-indigo-600 px-2  py-1 rounded-md text-yellow-50'>{candidatedata.status.replace('_',"")}</span>
+                                <BiEdit onClick={()=>handleEditClick(candidatedata)} className="text-indigo-600 cursor-pointer" size={23} />
                             </div>
                             <div className="flex col-span-1 justify-center items-center gap-4 ">
-                                <TimeAgoComponent createdAt={candidates[0].updatedAt} />
+                                <TimeAgoComponent createdAt={candidatedata.updatedAt} />
                             </div>
                             <div className="flex col-span-1 items-center justify-center  ">
                                 {candidatedata.score}
@@ -169,7 +214,7 @@ const Appliedcandidates = ({ candidates }) => {
                         </motion.li>
                     ))
                 ) : (
-                    candidates[0].appliedCandidates.map((candidatedata, index) => (
+                    news.map((candidatedata, index) => (
 
 
                         <motion.li
@@ -194,12 +239,12 @@ const Appliedcandidates = ({ candidates }) => {
                                 />
                                 <span className=" font-medium text-lg">{candidatedata.user.name}</span>
                             </div>
-                            <div className="  flex col-span-1 gap-3  justify-center items-center tracking-wider ">
-                                <span className=' bg-indigo-600 px-2 py-1 rounded-md text-yellow-50'>{candidatedata.status}</span>
+                            <div className="  flex col-span-1 gap-3  flex-wrap justify-center items-center tracking-wider ">
+                                <span className=' bg-indigo-600 px-2  py-1 rounded-md text-yellow-50'>{candidatedata.status.replace('_',"")}</span>
                                 <BiEdit onClick={()=>handleEditClick(candidatedata)} className="text-indigo-600 cursor-pointer" size={23} />
                             </div>
                             <div className="flex col-span-1 justify-center items-center gap-4 ">
-                                <TimeAgoComponent createdAt={candidates[0].updatedAt} />
+                                <TimeAgoComponent createdAt={candidatedata.updatedAt} />
                             </div>
                             <div className="flex col-span-1 items-center justify-center  ">
                                 {candidatedata.score}
@@ -226,9 +271,9 @@ const Appliedcandidates = ({ candidates }) => {
                 onChange={(e) => {
                     setUpdateStatus(e.target.value)}}
               >
-                <option value="selected">Selected</option>
-                <option value="applied">Applied</option>
-                <option value="not_selected">Not Selected</option>
+                <option value="SELECTED">Selected</option>
+                <option value="APPLIED">Applied</option>
+                <option value="NOT_SELECTED">Not Selected</option>
 
               </select>
               <div className="mt-6 grid grid-cols-2 gap-6">
@@ -240,7 +285,7 @@ const Appliedcandidates = ({ candidates }) => {
                       </button>
                       <button
                    
-     
+     onClick={()=>hanldechangestatus()}
                         className=" rounded-full bg-green-400 py-2 text-white"
                       >
                         Update

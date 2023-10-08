@@ -203,5 +203,18 @@ export const jobApplicationsRouter = createTRPCRouter({
       return {
         data: resume
       }
+    }),
+    getAppliedCandidatesById:protectedProcedure
+    .input(z.object({id: z.string()}))
+    .mutation(async ({ input }) => {
+      return  prisma.jobApplication.findMany({
+        where:{
+          jobId: input.id,
+        },
+       include:{
+          user:true
+       }
+      })
+   
     })
 });
