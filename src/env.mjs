@@ -14,7 +14,7 @@ const server = z.object({
   ),
   NEXT_GOOGLE_CLIENT_ID: z.string(),
   NEXT_GOOGLE_CLIENT_SECRET: z.string(),
-});
+}); 
 
 /**
  * Specify your client-side environment variables schema here. This way you can ensure the app isn't
