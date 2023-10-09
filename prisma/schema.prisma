@@ -98,6 +98,7 @@ model Job {
 
     category   Category @relation(fields: [categoryId], references: [id])
     categoryId String   @db.ObjectId
+    Closing    DateTime?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -163,3 +164,4 @@ model Company {
     linkedin String?
     jobs     Job[]
 }
+

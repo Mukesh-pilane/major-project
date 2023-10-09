@@ -219,9 +219,7 @@ export const jobApplicationsRouter = createTRPCRouter({
         score: 'desc'
        }
       })
-     console.log("jobApplicationsdasfefwa",jobApplications);
-
       return jobApplications
-    })
+    }),
 });
 
