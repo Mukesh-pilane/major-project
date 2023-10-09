@@ -10,13 +10,20 @@ import {
 import { prisma } from "~/server/db";
 
 export const companyRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.company.findMany({
-      orderBy: {
-        name: "asc",
-      },
-    });
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    try {
+      const companies = await ctx.prisma.company.findMany({
+        orderBy: {
+          name: "asc",
+        },
+      });
+      return companies;
+    } catch (error) {
+      console.error("Error fetching companies:", error);
+      throw new Error("Failed to fetch companies");
+    }
   }),
+  
   infiniteCompanies: publicProcedure
     .input(
       z.object({

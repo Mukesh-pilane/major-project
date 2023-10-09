@@ -52,12 +52,14 @@ const JobApplicationsPage = async ({ params: { id } }: Params) => {
       appliedCandidates:{
         include:{
           user:true
-        }
+        },
+        orderBy:{
+          score: 'desc'
+         }
       }
     },
   });
 
-  console.log(jobApplications);
   
 
   if (!jobApplications) return <NoApplications />;

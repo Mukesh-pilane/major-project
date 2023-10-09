@@ -62,7 +62,8 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
-  secret: "24df59367bd9ec9e051ada582bffa35d"
+  // deployement
+  // secret: "24df59367bd9ec9e051ada582bffa35d"
 };
 
 /**

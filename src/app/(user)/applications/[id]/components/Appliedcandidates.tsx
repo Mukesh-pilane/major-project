@@ -43,7 +43,6 @@ const Appliedcandidates = ({ candidates }) => {
 
      
         const new2= await newcandidatedata.mutateAsync({id:candidates.id})
-         console.log(new2);
         setNews(new2)
     } 
          fetchdata();
@@ -101,15 +100,11 @@ setIsEditing(false);
             !selectedCategory ||
             selectedCategory === "All" ||
             candidate.status.toLowerCase() === selectedCategory.toLowerCase();
-            console.log(categoryMatch);
             
           return  categoryMatch ;
         });
 
         setFilteredCandidates(filtered);
-        console.log(filteredCandidates);
-
-        console.log(search);
 
     }, [search,selectedCategory]);
 
@@ -117,13 +112,11 @@ setIsEditing(false);
     //base64encoded file
     
     getResume(item).then((response)=>{
-        console.log(response.file); 
         setResumeAvailable(response.file)
     })
     }
 
 
-    { console.log(candidates) }
     return (
         <main className=" mx-auto relative flex flex-col  w-full h-full  px-4 py-4 pb-16  ">
             <div className="flex justify-between w-[80%] mx-auto items-center h-fit mb-3">
@@ -265,7 +258,7 @@ setIsEditing(false);
 
             {isEditing && (
                 <div className="fixed inset-0 bg-dark-500 bg-opacity-50 opacity-100" >
-            <div  className="absolute w-[500px] p-4 z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border rounded-md shadow-md">
+            <div  className="absolute w-[500px] p-4 z-999 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border rounded-md shadow-md">
               <label htmlFor="">Selected Stage : </label> 
               <select
                 className=" p-2 border w-[50%] border-indigo-500 rounded-md outline-none "
