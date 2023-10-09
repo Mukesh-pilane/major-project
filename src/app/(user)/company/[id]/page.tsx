@@ -4,6 +4,7 @@ import { AiFillLinkedin, AiOutlineGlobal } from "react-icons/ai";
 import JobList from "./components/JobList";
 import type { Metadata } from "next";
 import { prisma } from "~/server/db";
+import NewModal from "./components/NewModal"
 
 type Params = {
   params: {
@@ -48,6 +49,8 @@ const CompanyPage = async ({ params: { id } }: Params) => {
       },
     },
   });
+
+  
   return (
     <main className=" mx-auto h-full w-full max-w-7xl py-10 px-4">
       <div className=" relative grid grid-cols-[minmax(auto,30%)_1fr] rounded-3xl bg-accentGradient shadow-2xl shadow-accent-100 ">
@@ -64,7 +67,8 @@ const CompanyPage = async ({ params: { id } }: Params) => {
           <h2 className="  text-[clamp(1rem,10vw,6rem)] font-medium capitalize text-gray-200">
             {company.name}
           </h2>
-          <div className=" flex justify-end gap-4 py-4">
+          <div className=" flex justify-end gap-4 items-center py-4">
+         <NewModal content={"hello"}/>
             <a title="website link" href={company.website} target="_blank">
               <AiOutlineGlobal className="h-6 w-6 text-gray-100" />
             </a>
