@@ -184,6 +184,7 @@ export const jobApplicationsRouter = createTRPCRouter({
       });
     })
     ,
+    
     jobStatus: protectedProcedure
     .input(z.object({ applicationId: z.string(), status: z.enum(["APPLIED","NOT_SELECTED", "SELECTED"]) }))
     .mutation(async ({ input }) => {
@@ -207,14 +208,20 @@ export const jobApplicationsRouter = createTRPCRouter({
     getAppliedCandidatesById:protectedProcedure
     .input(z.object({id: z.string()}))
     .mutation(async ({ input }) => {
-      return  prisma.jobApplication.findMany({
+      const jobApplications = await prisma.jobApplication.findMany({
         where:{
           jobId: input.id,
         },
        include:{
           user:true
+       }, 
+       orderBy:{
+        score: 'desc'
        }
       })
-   
+     console.log("jobApplicationsdasfefwa",jobApplications);
+
+      return jobApplications
     })
 });
+

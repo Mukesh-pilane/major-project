@@ -196,3 +196,14 @@ select {
 ::-webkit-scrollbar-thumb:hover {
   background: theme("colors.accent.700");
 }
+
+
+.react-pdf__Page__textContent{
+  display: none;
+}
+
+.react-pdf__Document{
+  display: flex;
+  justify-content: center;
+    padding: 20px;
+}

@@ -1,5 +1,0 @@
-appliedjobs mai userposted job ka functionality daalde jiske agar above 5 ke job gaya toe vo next aur 
-prev button activate hoge
-agar dekhna hai kaisa funvtionality hai user posted mai toe ek account se 5 se jyada job post kar
-ye karliye toe dekhle vo skelton vala loaing kaise kiya hai usne taki baadme 
-hum idhar bhi use karsake usse
