@@ -11,7 +11,7 @@ import { getResume } from "~/utils/flaskApi";
 import { api } from "~/utils/api";
 import toast from "react-hot-toast";
 import type { RouterOutputs } from "~/utils/api";
-import PDFViewer from "./PdfViewer";
+
 
 type Appliedcandidates=RouterOutputs["jobApplications"]["getAppliedCandidatesById"];
 
@@ -298,7 +298,7 @@ setIsEditing(false);
             </div>
           )}
 
-            {resumeAvailable && <PDFViewer base64String={resumeAvailable} />}
+       
           
         </main >
     )
