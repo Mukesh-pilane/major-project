@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import type { RouterOutputs } from "~/utils/api";
 import PDFViewer from "./PdfViewer";
 
+
 type Appliedcandidates=RouterOutputs["jobApplications"]["getAppliedCandidatesById"];
 
 const Appliedcandidates = ({ candidates }) => {
@@ -290,7 +291,7 @@ setIsEditing(false);
             </div>
           )}
 
-            {resumeAvailable && <PDFViewer base64String={resumeAvailable} />}
+{resumeAvailable && <PDFViewer base64String={resumeAvailable} />}
           
         </main >
     )
