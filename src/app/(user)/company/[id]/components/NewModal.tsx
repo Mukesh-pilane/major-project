@@ -2,18 +2,32 @@
 import React,{useState} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AiOutlineClose } from 'react-icons/ai';
+import { api } from '~/utils/api';
 
 
-const Modal = ({  content}) => {
+
+const Modal = ({  content, id}) => {
     const [isModalOpen, setIsModalOpen] = useState(false); // State for controlling the modal
+    const TopResumes = api.company.getCompanyJobsTopresume.useMutation({onSuccess: (data) => {
+      if (data){
+        console.log(data);
+        
+      }
+    }})
 
     const handleOpenModal = () => {
       setIsModalOpen(true);
+      const res = TopResumes.mutate({id});
     };
   
     const handleCloseModal = () => {
       setIsModalOpen(false);
     };
+
+    
+    
+
+    
   return (
     <>
      <h1 className="p-2 text-white font-semibold cursor-pointer " onClick={handleOpenModal}>Top Resumes</h1>

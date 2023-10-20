@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 from bson.json_util import dumps
 import base64
 import io 
-from utils import predict_resume_category, pdfTextExtractor, calculate_cosine_similarity
+from utils import predict_resume_category, pdfTextExtractor, calculate_cosine_similarity , recommend_courses
 import fitz
 
 
@@ -56,5 +56,19 @@ def retrieveResume():
      file_contents_base64 = base64.b64encode(file.read()).decode('utf-8')
      print("data",file_contents_base64)
      return {"file" : file_contents_base64}
+
+@app.route('/api/recommend', methods=['GET'])
+def get_recommendations():
+    input_keyword = request.args.get('keyword', default=None)
+    
+    if input_keyword is not None:
+        recommended_courses = recommend_courses(input_keyword, num_recommendations=10)
+        if recommended_courses:
+            return jsonify({"Recommended Courses for Keyword": input_keyword, "Courses": recommended_courses})
+        else:
+            return jsonify({"message": "No matching courses found for keyword: " + input_keyword})
+    else:
+        return jsonify({"error": "Please provide a 'keyword' parameter."})
+
 if __name__ == '__main__':
     app.run(debug=True)

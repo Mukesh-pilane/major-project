@@ -50,7 +50,6 @@ const CompanyPage = async ({ params: { id } }: Params) => {
     },
   });
 
-  
   return (
     <main className=" mx-auto h-full w-full max-w-7xl py-10 px-4">
       <div className=" relative grid grid-cols-[minmax(auto,30%)_1fr] rounded-3xl bg-accentGradient shadow-2xl shadow-accent-100 ">
@@ -68,7 +67,7 @@ const CompanyPage = async ({ params: { id } }: Params) => {
             {company.name}
           </h2>
           <div className=" flex justify-end gap-4 items-center py-4">
-         <NewModal content={"hello"}/>
+         <NewModal content={"hello"} id={company.id}/>
             <a title="website link" href={company.website} target="_blank">
               <AiOutlineGlobal className="h-6 w-6 text-gray-100" />
             </a>

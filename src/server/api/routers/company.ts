@@ -131,4 +131,33 @@ export const companyRouter = createTRPCRouter({
         },
       });
     }),
+  getCompanyJobsTopresume:publicProcedure
+  .input(z.object({ id: z.string() }))
+  .mutation(async ({ input }) => {
+      // Check if the user has applied to any job by querying the jobApplication model
+      return prisma.company.findMany({
+        where: {
+          id:input.id
+        },
+        include:{
+          jobs:{
+            where:{
+              createdAt:{ //change created at to closing when closing is set
+                lt: new Date() 
+              }
+            },
+            include: {
+              appliedCandidates:{
+                where:{
+                  status: "SELECTED"
+                }, 
+                orderBy: {
+                  score: 'desc',
+                },
+                take: 1,
+              }
+            }
+          }
+        }
+      })})
 });
