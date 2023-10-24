@@ -13,7 +13,15 @@ import base64
 import io 
 from utils import predict_resume_category, pdfTextExtractor, calculate_cosine_similarity , recommend_courses
 import fitz
+import nltk
+from nltk.data import find
 
+# Check if the 'punkt' data is already downloaded
+try:
+    find('tokenizers/punkt')
+except LookupError:
+    # If it's not downloaded, download it
+    nltk.download('punkt')
 
 
 app = Flask(__name__)
