@@ -9,6 +9,8 @@ import { JobType, WorkPlace } from "@prisma/client";
 import RichTextEditor from "~/components/input/RichTextEditor";
 import { toast } from "react-hot-toast";
 import { useSession } from "next-auth/react";
+
+
 import CheckBoxV1 from "~/components/input/CheckBoxV1";
 import SelectV1 from "~/components/input/SelectV1";
 
@@ -28,14 +30,15 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   applyUrl: Yup.string().required("Required"),
   categoryId: Yup.string().required("Required"),
   featured: Yup.boolean().required("Required"),
+
 });
 
 const JobListPage = () => {
-  
+
   const { data: session } = useSession();
 
   const listJob = api.job.create.useMutation({
-    onSuccess: ( ) => {
+    onSuccess: () => {
       toast.success("Job Listed Successfully");
 
     },
@@ -56,7 +59,7 @@ const JobListPage = () => {
   const [applyInstruction, setApplyInstruction] = useState<string>(
     "Any special apply instruction "
   );
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
   // if (isCompaniesLoading || isCategoriesLoading || isSubCategoriesLoading) {
   //   return <Loader />;
   // }
@@ -102,9 +105,11 @@ const JobListPage = () => {
             applyInstruction: applyInstruction,
             approved: values.approved,
             featured: values.featured,
+
             userId: session.user.id,
+
           });
-                
+
         }}
       >
         {({ errors, touched, values }) => (
@@ -216,8 +221,9 @@ const JobListPage = () => {
                   name="workPlace"
                   title="Working Place"
                 />
+
                 {values.workPlace === "HYBRID" ||
-                values.workPlace === "OFFICE" ? (
+                  values.workPlace === "OFFICE" ? (
                   <Field
                     component={TextInput}
                     name="location"
@@ -226,7 +232,23 @@ const JobListPage = () => {
                     placeholder="location"
                   />
                 ) : null}
+
+
+
               </div>
+<div className="grid grid-cols-1">
+
+
+                <label>Application Deadline</label>
+                <input
+                  type="date"
+                  id="applicationDeadline"
+                  name="applicationDeadline"
+                  value={selectedDate.toISOString().slice(0, 10)}
+                  onChange={(e) => setSelectedDate(new Date(e.target.value))}
+                />
+    </div>
+
               <Field
                 component={TextInput}
                 name="applyUrl"

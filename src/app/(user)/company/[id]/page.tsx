@@ -67,7 +67,7 @@ const CompanyPage = async ({ params: { id } }: Params) => {
             {company.name}
           </h2>
           <div className=" flex justify-end gap-4 items-center py-4">
-         <NewModal content={"hello"} id={company.id}/>
+         <NewModal id={company.id}/>
             <a title="website link" href={company.website} target="_blank">
               <AiOutlineGlobal className="h-6 w-6 text-gray-100" />
             </a>

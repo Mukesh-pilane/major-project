@@ -16,4 +16,5 @@ interface JobListType {
   applyEmail?: string | undefined;
   featured?: boolean;
   approved?: boolean;
+
 }
