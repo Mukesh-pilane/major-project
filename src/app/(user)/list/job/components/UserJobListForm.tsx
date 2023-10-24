@@ -37,6 +37,8 @@ function UserJobListForm() {
       toast.success(`SuccessFully applied for job listing`);
     },
   });
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
 
   const { data: companies, isLoading: isCompaniesLoading } =
     api.company.getAll.useQuery(undefined, {});
@@ -63,6 +65,7 @@ function UserJobListForm() {
         title: undefined,
         type: "FULL_TIME",
         education: "Any Graduate",
+        Closing:selectedDate,
         role: undefined,
         workPlace: "REMOTE",
         location: undefined,
@@ -91,6 +94,7 @@ function UserJobListForm() {
           applyEmail: values.applyEmail,
           applyInstruction: applyInstruction,
           userId: session.user.id,
+          Closing: selectedDate
         });
       }}
     >
@@ -214,6 +218,18 @@ function UserJobListForm() {
                 />
               ) : null}
             </div>
+
+            <div className="grid grid-cols-1">
+                <label>Application Deadline</label>
+                <input
+                  type="date"
+                  id="applicationDeadline"
+                  name="Closing"
+                  value={selectedDate.toISOString().slice(0, 10)}
+                  onChange={(e) => setSelectedDate(new Date(e.target.value))}
+                />
+              </div>
+
             <Field
               component={TextInput}
               name="applyUrl"

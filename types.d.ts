@@ -3,6 +3,7 @@ interface JobListType {
   type?: JobType | undefined;
   education?: string | undefined;
   role?: string | undefined;
+  Closing: Date;
   salary?: number | undefined;
   experienceMin?: number | undefined;
   experienceMax?: number | undefined;
@@ -16,4 +17,5 @@ interface JobListType {
   applyEmail?: string | undefined;
   featured?: boolean;
   approved?: boolean;
+
 }

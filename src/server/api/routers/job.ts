@@ -297,6 +297,7 @@ export const jobRouter = createTRPCRouter({
         applyInstruction: z.string().optional(),
         applyEmail: z.string().optional(),
         userId: z.string(),
+        Closing: z.date()
       })
     )
     .mutation(({ ctx, input }) => {
@@ -319,6 +320,7 @@ export const jobRouter = createTRPCRouter({
           applyInstruction: input.applyInstruction,
           applyEmail: input.applyEmail,
           userId: input.userId,
+          Closing: input.Closing
         },
       });
     }),
