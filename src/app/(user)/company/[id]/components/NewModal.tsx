@@ -8,16 +8,17 @@ import { api } from '~/utils/api';
 
 const Modal = ({  content, id}) => {
     const [isModalOpen, setIsModalOpen] = useState(false); // State for controlling the modal
+    const [topResumes, setTopResumes] = useState(null); 
     const TopResumes = api.company.getCompanyJobsTopresume.useMutation({onSuccess: (data) => {
       if (data){
-        console.log(data);
+        setTopResumes(data);
         
       }
     }})
 
     const handleOpenModal = () => {
       setIsModalOpen(true);
-      const res = TopResumes.mutate({id});
+      
     };
   
     const handleCloseModal = () => {
@@ -25,13 +26,16 @@ const Modal = ({  content, id}) => {
     };
 
     
-    
+    React.useEffect(()=>{
+      const res = TopResumes.mutate({id});
+    }, [])
 
     
   return (
     <>
      <h1 className="p-2 text-white font-semibold cursor-pointer " onClick={handleOpenModal}>Top Resumes</h1>
-   
+     
+   {topResumes && console.log(topResumes)}
     <AnimatePresence>
       {isModalOpen && (
         <motion.div
