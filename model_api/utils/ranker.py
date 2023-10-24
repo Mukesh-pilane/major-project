@@ -3,7 +3,17 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.tokenize import word_tokenize
+import nltk
+from nltk.data import find
 
+# Check if the 'punkt' data is already downloaded
+try:
+    find('tokenizers/punkt')
+    find('tokenizers/stopwords')
+except LookupError:
+    # If it's not downloaded, download it
+    nltk.download('punkt')
+    nltk.download('stopwords')
 from nltk.corpus import stopwords
 
 

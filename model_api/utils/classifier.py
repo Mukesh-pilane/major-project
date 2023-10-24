@@ -5,7 +5,17 @@ import pickle
 
 # # Filter out the InconsistentVersionWarning for LabelBinarizer
 # warnings.filterwarnings("ignore", category=InconsistentVersionWarning, module="sklearn.base")
+import nltk
+from nltk.data import find
 
+# Check if the 'punkt' data is already downloaded
+try:
+    find('tokenizers/punkt')
+    find('tokenizers/stopwords')
+except LookupError:
+    # If it's not downloaded, download it
+    nltk.download('punkt')
+    nltk.download('stopwords')
 
 def clean_resume(resume_text):
     resume_text = re.sub('http\S+\s*', ' ', resume_text)

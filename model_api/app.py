@@ -14,16 +14,7 @@ import io
 from utils import predict_resume_category, pdfTextExtractor, calculate_cosine_similarity , recommend_courses
 import fitz
 import nltk
-from nltk.data import find
 
-# Check if the 'punkt' data is already downloaded
-try:
-    find('tokenizers/punkt')
-    find('tokenizers/stopwords')
-except LookupError:
-    # If it's not downloaded, download it
-    nltk.download('punkt')
-    nltk.download('stopwords')
 
 
 
