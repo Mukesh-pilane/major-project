@@ -26,6 +26,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
   applyUrl: Yup.string().required("Required"),
   subCategoryId: Yup.string().required("Required"),
   categoryId: Yup.string().required("Required"),
+
 });
 function UserJobListForm() {
   const { data: session } = useSession();
@@ -220,8 +221,9 @@ function UserJobListForm() {
             </div>
 
             <div className="grid grid-cols-1">
-                <label>Application Deadline</label>
+                <label className=" pb-1  text-xs capitalize text-gray-600 dark:text-gray-100">Application Deadline</label>
                 <input
+                className="w-full rounded-md bg-white py-2 pl-4 text-base font-normal text-gray-900 ring-1 ring-gray-500 ring-opacity-25 placeholder:text-sm placeholder:text-gray-400  focus:outline-none focus:ring-2 focus:ring-accent-500 dark:text-gray-50 dark:ring-opacity-50"
                   type="date"
                   id="applicationDeadline"
                   name="Closing"

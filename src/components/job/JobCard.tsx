@@ -64,8 +64,12 @@ const JobCard = ({ job }: { job: Job }) => {
           className=" row-span-2 aspect-square h-full  max-h-10 overflow-hidden object-contain md:row-span-3 md:max-h-16"
         />
 
-        <h2 className="font-medium capitalize line-clamp-2 ">
+        <h2 className="font-medium capitalize line-clamp-2 flex justify-between">
           {job.title.toLowerCase()}
+          <p className="flex px-2 text-purple-500 font-normal text-sm">
+
+ <span className=" font-medium pr-2">Apply By  </span> {" " + job?.Closing.toDateString()}
+          </p>
         </h2>
 
         <div className=" col-span-1 flex flex-wrap items-center gap-2  md:col-span-1">
@@ -112,7 +116,7 @@ const JobCard = ({ job }: { job: Job }) => {
       </Link>
       <div className=" grid grid-cols-2 ">
         <p className=" flex h-full max-h-6 w-fit  items-center rounded-full py-1 px-4 text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
-          <TimeAgoComponent createdAt={job.createdAt} />
+          <TimeAgoComponent createdAt={job.createdAt} /> 
         </p>
         <p className=" ml-auto flex h-full max-h-6  rounded-full py-1 px-4 text-end text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
           by {job.company.name}

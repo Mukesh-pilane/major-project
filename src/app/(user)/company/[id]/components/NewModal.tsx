@@ -62,7 +62,7 @@ const Modal = ({ id }) => {
               </button>
               <div className=" min-w-[600px] flex  flex-col  p-8">
 
-                {topResumes && topResumes.jobs.map((job) => (
+                {topResumes && topResumes.lenght>0 ? topResumes.jobs.map((job) => (
                   <div key={job.id} className="my-2 p-2 flex w-[85%] items-center justify-between border border-gray-300 rounded-lg">
                     <h2 className="text-lg font-semibold">{job.title}</h2>
                     <p className="text-gray-500">{job.type.replace('_', ' ')}</p>
@@ -71,7 +71,9 @@ const Modal = ({ id }) => {
                       Apply Now
                     </button>
                   </div>
-                ))}
+                )):<>
+                <p className='flex w-[85%]'>No Resumes are Available</p>
+                </>}
               </div>
 
             </div>

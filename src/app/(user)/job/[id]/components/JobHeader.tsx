@@ -8,7 +8,9 @@ import {
   BiDirections,
   BiRupee,
   BiUser,
+  
 } from "react-icons/bi";
+import {AiOutlineClockCircle} from "react-icons/ai";
 
 import { BsPinMap } from "react-icons/bs";
 import TimeAgoComponent from "~/components/TimeAgo";
@@ -22,7 +24,7 @@ const TextItem = ({
   icon: Icon,
 }: {
   prefix: string;
-  suffix: string | number;
+  suffix: string | number ;
   icon: IconType;
 }) => {
   return (
@@ -92,6 +94,7 @@ const JobHeader = ({ job }: { job: Job }) => {
           icon={BiCodeBlock}
         />
         <TextItem prefix="Role" suffix={job?.role} icon={BiUser} />
+        <TextItem prefix="Deadline" suffix={job?.Closing?.toDateString()} icon={AiOutlineClockCircle} />
       </ul>
     </div>
   );
