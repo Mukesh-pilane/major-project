@@ -1,18 +1,34 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AiOutlineClose } from 'react-icons/ai';
 import { fetchRecommendation } from '~/utils/flaskApi';
 
 
-const StatusModal = async ({ keyword, setIsmodal, ismodal }) => {
-  let Recommendations
-  if (ismodal) {
-    Recommendations = ismodal && await fetchRecommendation(keyword);
-  }
-  console.log(Recommendations);
 
 
+const StatusModal = ({ keyword,setIsmodal, ismodal}) => {
+  const [recommendations, setRecommendations] = useState(null);
+
+  useEffect(() => {
+    if (ismodal) {
+      const fetchRecommendations = async () => {
+        try {
+          const data = await fetchRecommendation(keyword);
+          setRecommendations(data);
+          console.log(recommendations);
+          
+        } catch (error) {
+          // Handle any fetch errors here
+          console.error(error);
+        }
+      };
+      
+      fetchRecommendations();
+    }
+  }, [ismodal, keyword]);
+  
+  
   return (
     <>
 
@@ -35,7 +51,7 @@ const StatusModal = async ({ keyword, setIsmodal, ismodal }) => {
             <div className="p-6">
               <h2 className="text-2xl font-semibold mb-4">Recommended Courses</h2>
               <div className="text-gray-700 grid grid-cols-1 gap-4 items-center">
-                {Recommendations.Courses.length > 0 && Recommendations.Courses.slice(0, 10).map((course, index) => (
+                {recommendations && recommendations.Courses.length > 0 && recommendations.Courses.slice(0, 10).map((course, index) => (
                   <div key={index} className="mb-2 flex flex-col items-start justify-center">
                     <h3 className="text-lg font-semibold">
                       <h1
@@ -44,11 +60,11 @@ const StatusModal = async ({ keyword, setIsmodal, ismodal }) => {
 
 
                       >
-                        {index+1+". "}{course[0]}
+                        {index+1+". "}{course.title}
                       </h1>
                     </h3>
-                    <p><span className=' font-bold'>University:</span> {course[1]}</p>
-                    <p><span className=' font-bold'> Course Link:</span> <a href={course[2]} target="_blank" rel="noopener noreferrer">https://example.com/course1</a></p>
+                    <p><span className=' font-bold'>University:</span> {course.organization}</p>
+                    <p><span className=' font-bold'> Course Link:</span> <a  target="_blank" rel="noopener noreferrer">https://example.com/course1</a></p>
                   </div>
                 ))}
               </div>
