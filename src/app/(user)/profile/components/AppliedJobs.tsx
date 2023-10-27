@@ -13,11 +13,12 @@ import {
   BiRupee,
   BiTimeFive,
 } from "react-icons/bi";
-
+import {AiOutlineQuestionCircle} from "react-icons/ai";
 import SecondaryButton from "~/components/button/SecondaryButton";
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import { motion } from "framer-motion";
+import StatusModal from "./StatusModal";
 
 type Job = RouterOutputs["jobApplications"]["dummy"]; // type for each appliedjob or jobs state variable
 // type Job = 
@@ -40,7 +41,7 @@ const TextItem = ({
   );
 };
 
-const AppliedJobscard = ({ job, createdAt }) => {
+const AppliedJobscard = ({ job, createdAt,status ,ismodal,handleOpenModal,handleCloseModal}) => {
 
   return (
     <motion.li
@@ -118,8 +119,9 @@ const AppliedJobscard = ({ job, createdAt }) => {
       <div className=" grid grid-cols-2 ">
         <p className=" flex h-full gap-3 max-h-9 w-fit  items-center rounded-full py-1 px-4 text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
         <p className=" ml-auto flex bg-purple-600 text-white h-full max-h-8  rounded-full py-1 px-4 text-end text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
-          Applied
+          {status.replace('_'," ")}
         </p>
+        <p className="px-2 " onClick={()=>{handleOpenModal()}}><AiOutlineQuestionCircle className="text-purple-500 font-medium" size={25} /></p>
           <TimeAgoComponent createdAt={createdAt} />
         </p>
         <p className=" ml-auto flex h-full max-h-6  rounded-full py-1 px-4 text-end text-xs capitalize  text-gray-500 md:bottom-1 md:right-1">
@@ -127,6 +129,7 @@ const AppliedJobscard = ({ job, createdAt }) => {
         </p>
        
       </div>
+      {ismodal && <StatusModal status={status} setIsmodal={handleCloseModal}/>}
 
 
     </motion.li>
@@ -138,7 +141,13 @@ const AppliedJobs = () => {
   const [jobs, setJobs] = useState<Job[]>();
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
-
+  const [ismodal,setIsmodal]=useState(false);
+const handleCloseModal = () => {
+  setIsmodal(false);
+};
+const handleOpenModal = () => {
+  setIsmodal(true);
+};
   const getUserJobApplications = api.jobApplications.getUserJobApplications.useMutation();
 
 
@@ -166,7 +175,7 @@ const AppliedJobs = () => {
       {jobs?.length > 0 ? (
         <ul className="w-full grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-1">
           {jobs?.map((job) => (
-            <AppliedJobscard key={job.job.id} job={job.job} createdAt={job.createdAt} />
+            <AppliedJobscard key={job.job.id} job={job.job} createdAt={job.createdAt} status={job.status} handleCloseModal={handleCloseModal} handleOpenModal={handleOpenModal} ismodal={ismodal}/>
           ))}
         </ul>
       ) : (
