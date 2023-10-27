@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-/model_api/venv
 /.pnp
 .pnp.js
 
@@ -12,7 +11,6 @@
 # database
 /prisma/db.sqlite
 /prisma/db.sqlite-journal
-
 # next.js
 /.next/
 /out/
@@ -41,3 +39,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+#python
+/model_api/venv
+__pycache__/
