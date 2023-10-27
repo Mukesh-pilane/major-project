@@ -1,6 +1,6 @@
 import axios from 'axios';
 // Define the base API URL as a global variable
-const BASE_API_URL = 'https://joblisterapi.onrender.com/api'
+const BASE_API_URL = 'http://127.0.0.1:5000/api'
 // 'https://joblisterapi.onrender.com/api';  // Adjust as needed
 
 // Define a function to fetch data from an endpoint
