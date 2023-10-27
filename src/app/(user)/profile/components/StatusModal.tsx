@@ -2,19 +2,16 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AiOutlineClose } from 'react-icons/ai';
+import { fetchRecommendation } from '~/utils/flaskApi';
 
 
-
-const StatusModal = ({ status,setIsmodal }) => {
-
-
-
-
-
-
-
-
-
+const StatusModal = async ({ keyword,setIsmodal, ismodal}) => {
+  let Recommendations
+  if(ismodal) {
+   Recommendations = ismodal && await fetchRecommendation(keyword);
+  }
+  console.log(Recommendations);
+  
   return (
     <>
  

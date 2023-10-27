@@ -78,7 +78,7 @@ def get_recommendations():
     if input_keyword is not None:
         recommended_courses = recommend_courses(input_keyword, num_recommendations=10)
         if recommended_courses:
-            return jsonify({"Recommended Courses for Keyword": input_keyword, "Courses": recommended_courses})
+            return jsonify({"Courses": recommended_courses})
         else:
             return jsonify({"message": "No matching courses found for keyword: " + input_keyword})
     else:

@@ -41,7 +41,8 @@ const TextItem = ({
   );
 };
 
-const AppliedJobscard = ({ job, createdAt,status ,ismodal,handleOpenModal,handleCloseModal}) => {
+const AppliedJobscard = ({ job, createdAt,status , recommender,ismodal,handleOpenModal,handleCloseModal}) => {
+  
 
   return (
     <>
@@ -133,7 +134,7 @@ const AppliedJobscard = ({ job, createdAt,status ,ismodal,handleOpenModal,handle
 
 
     </motion.li>
-    {ismodal && <StatusModal status={status} setIsmodal={handleCloseModal}/>}
+    {ismodal && <StatusModal keyword={recommender}  setIsmodal={handleCloseModal} ismodal={ismodal}/>}
     </>
   );
 };
@@ -177,7 +178,7 @@ const handleOpenModal = () => {
       {jobs?.length > 0 ? (
         <ul className="w-full grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-1">
           {jobs?.map((job) => (
-            <AppliedJobscard key={job.job.id} job={job.job} createdAt={job.createdAt} status={job.status} handleCloseModal={handleCloseModal} handleOpenModal={handleOpenModal} ismodal={ismodal}/>
+            <AppliedJobscard key={job.job.id} job={job.job} recommender={job.classified} createdAt={job.createdAt} status={job.status} handleCloseModal={handleCloseModal} handleOpenModal={handleOpenModal} ismodal={ismodal}/>
           ))}
         </ul>
       ) : (
