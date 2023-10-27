@@ -213,4 +213,3 @@ const handleOpenModal = () => {
 
 export default AppliedJobs;
 
-
