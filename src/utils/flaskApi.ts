@@ -22,7 +22,7 @@ export function fetchData(endpoint) {
 // Define a function to upload a PDF file to the Flask API
 export function rankResume(file, jobDescription) {
   // Construct the full API URL
-  const apiUrl = `${BASE_API_URL}/ranker`;
+  const apiUrl = `http://127.0.0.1:5000/api/ranker`;
   console.log(file.length,"in");
   
   const formData = new FormData();
@@ -58,4 +58,19 @@ export function getResume(id: string){
     // Handle any errors that occur during the request
     throw error;
   });
+}
+
+export function fetchRecommendation(keyword) { 
+  // Construct the full API URL
+  const apiUrl = `http://127.0.0.1:5000/api/recommend?keyword=${keyword}`;
+
+  return axios.get(apiUrl)
+    .then(response => {
+      // Handle the successful response
+      return response.data;
+    })
+    .catch(error => {
+      // Handle any errors that occur during the request
+      throw error;
+    });
 }
