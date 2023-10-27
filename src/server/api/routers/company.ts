@@ -142,7 +142,7 @@ export const companyRouter = createTRPCRouter({
         include:{
           jobs:{
             where:{
-              createdAt:{ //change created at to closing when closing is set
+              Closing:{ //change created at to closing when closing is set
                 lt: new Date() 
               }
             },
