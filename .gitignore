@@ -42,4 +42,4 @@ yarn-error.log*
 
 #python
 /model_api/venv
-__pycache__/
+**/__pycache__/
