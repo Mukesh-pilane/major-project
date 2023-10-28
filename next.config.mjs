@@ -22,28 +22,8 @@ const config = {
   //   locales: ["en"],
   //   defaultLocale: "en",
   // },
-   module: {
-    rules: [
-      {
-        test: /\.(pdf|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'raw-loader',
-            options: {
-              esModule: false,
-            },
-          },
-        ],
-      },
-    ],
-  },
-  
   images: {
     domains: ["lh3.googleusercontent.com", "upload.wikimedia.org"],
   },
-  webpack: (config) => {
-     config.externals.push({ sharp: 'commonjs sharp', canvas: 'commonjs canvas' }) 
-     return config 
-    } 
 };
 export default config;

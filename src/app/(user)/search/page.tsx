@@ -118,7 +118,7 @@ const SearchPage = () => {
   return (
     <main className=" mx-auto grid h-full w-full max-w-7xl gap-6 px-4 pb-16 md:grid-cols-[auto_1fr] md:py-10 ">
       <div className=" top-11 z-10 grid h-fit gap-6 bg-light-500 md:sticky  md:max-w-[250px]">
-        <SearchInput value={search} onChange={setSearch} />
+        <SearchInput value={search} onChange={setSearch} placeholder="search"/>
         {categories && (
           <ComboBox
             title="Category"

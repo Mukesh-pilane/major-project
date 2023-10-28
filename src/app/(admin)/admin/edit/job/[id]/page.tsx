@@ -85,6 +85,7 @@ const EditJobPage = ({ params: { id } }: Params) => {
           companyId: job.companyId,
           featured: job.featured,
           approved: job.approved,
+          Closing: job.Closing,
         }}
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={(values: JobListType) => {
