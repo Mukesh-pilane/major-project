@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
      */
   ],
   // deployement
-  // secret: "24df59367bd9ec9e051ada582bffa35d"
+	secret: "8d7d81f72ef721c74844ff70b10ff182"
 };
 
 /**

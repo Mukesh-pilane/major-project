@@ -31,10 +31,10 @@ const Appliedcandidates = ({ candidates }) => {
         onError: (e) => {
             toast.error(`Something went wrong ${e.message}`);
           },
-          onSuccess: () => {
+        //   onSuccess: () => {
     
 
-          },
+        //   },
     })
     const [flag, setFlag] = useState(false);
     const [resumeAvailable, setResumeAvailable] = useState("");
@@ -134,8 +134,8 @@ setIsEditing(false);
       All
     </div>
 
-                        {categories.map((category) => (
-                            <div  onClick={() => handleCategoryChange(category.name)}   className={`relative flex w-fit flex-nowrap items-center gap-2 whitespace-nowrap rounded-3xl py-2.5 px-4 text-center text-sm shadow-xl shadow-accent-100/50 transition-transform duration-200 ease-in-out ${
+                        {categories.map((category, i) => (
+                            <div key={i} onClick={() => handleCategoryChange(category.name)}   className={`relative flex w-fit flex-nowrap items-center gap-2 whitespace-nowrap rounded-3xl py-2.5 px-4 text-center text-sm shadow-xl shadow-accent-100/50 transition-transform duration-200 ease-in-out ${
                                 selectedCategory === category.name
                                   ? "bg-indigo-600 text-white"
                                   : "bg-white text-gray-600 hover:scale-105 hover:shadow-accent-200/50 hover:ring-2 hover:ring-accent-200"
