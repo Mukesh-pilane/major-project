@@ -7,7 +7,11 @@ import {
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
-import { prisma } from "~/server/db";
+// import { prisma } from "~/server/db"; //development
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
