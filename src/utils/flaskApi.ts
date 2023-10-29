@@ -1,6 +1,6 @@
 import axios from 'axios';
 // Define the base API URL as a global variable
-const BASE_API_URL = 'http://127.0.0.1:5000/api'
+const BASE_API_URL = 'https://joblisterapi.onrender.com/api'
 // 'https://joblisterapi.onrender.com/api';  // Adjust as needed
 
 // Define a function to fetch data from an endpoint
@@ -22,7 +22,7 @@ export function fetchData(endpoint) {
 // Define a function to upload a PDF file to the Flask API
 export function rankResume(file, jobDescription) {
   // Construct the full API URL
-  const apiUrl = `http://127.0.0.1:5000/api/ranker`;
+  const apiUrl = `${BASE_API_URL}/ranker`;
   console.log(file.length,"in");
   
   const formData = new FormData();
@@ -62,7 +62,7 @@ export function getResume(id: string){
 
 export function fetchRecommendation(keyword) { 
   // Construct the full API URL
-  const apiUrl = `http://127.0.0.1:5000/api/recommend?keyword=${keyword}`;
+  const apiUrl = `${BASE_API_URL}/recommend?keyword=${keyword}`;
 
   return axios.get(apiUrl)
     .then(response => {
