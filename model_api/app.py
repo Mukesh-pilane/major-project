@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, request
 import sys
 import os
-# import nltk
-# nltk.download('stopwords')
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), './')))
 from flask_cors import CORS 
 from pymongo import MongoClient
@@ -13,9 +14,7 @@ import base64
 import io 
 from utils import predict_resume_category, pdfTextExtractor, calculate_cosine_similarity , recommend_courses
 import fitz
-import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
+
 # from nltk.data import find
 
 # # Check if the 'punkt' data is already downloaded
